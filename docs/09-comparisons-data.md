@@ -75,6 +75,7 @@ The complete comparison of every technique covered in this guide:
 | C3 | Progressive on-demand guidance | 60-90% of optional guidance | — | Positive | High | Teams with reusable prompt files |
 | C4 | Start new conversations | 80%+ | — | Lose context | Low | Long sessions |
 | C5 | Convert non-text files to Markdown first | ~33% on cited PDF example; higher for noisy HTML | — | Improves structure | Low | DOCX, PDF, PPTX, XLSX, images, audio, RAG ingestion |
+| C6 | Precompute codebase graph with [Graphify](https://github.com/Graphify-Labs/graphify) | 6.8×-71.5× claimed for structural navigation tasks | — | Improves targeting | Medium | Large codebases; repeated cross-file agent navigation |
 | **Output Control** |
 | D1 | Code-only responses | — | 40-70% | Good | Low | Code generation |
 | D2 | Structured output (JSON/tables) | — | 30-60% | Depends | Low | Data tasks |
@@ -116,6 +117,8 @@ The complete comparison of every technique covered in this guide:
 
 > C5 source: Marc Bara's [Your .docx Is Wasting 33% of Your AI Budget](https://medium.com/@marc.bara.iniesta/your-docx-is-wasting-33-of-your-ai-budget-86a3d229d042). Use [Microsoft MarkItDown](https://github.com/microsoft/markitdown) when non-text files need to enter an AI workflow.
 
+> C6 source: [Graphify benchmarks](https://github.com/Graphify-Labs/graphify/blob/main/BENCHMARKS.md) and project documentation. Treat the high-end 71.5× number as structural-navigation best case on large codebases, not a universal savings guarantee.
+
 ### The Big Winners
 
 If you do nothing else, do these eight. Ranked by impact-to-effort ratio:
@@ -127,7 +130,8 @@ If you do nothing else, do these eight. Ranked by impact-to-effort ratio:
 5. **Ask Mode for simple questions** — 60-90% savings by avoiding Agent overhead
 6. **Audit MCP servers** — disable unused servers, save 5K-190K tokens per agent task
 7. **Convert non-text files to Markdown first** — avoid the DOCX/PDF/HTML format tax before content enters chat, agents, or RAG
-8. **Retune prompts to target model guide** — not a per-request shrink; improves first-pass quality and avoids rework after model changes
+8. **Precompute codebase graphs with Graphify** — replace repeated orientation reads with targeted graph queries on large repos
+9. **Retune prompts to target model guide** — not a per-request shrink; improves first-pass quality and avoids rework after model changes
 
 ## 3.4 Quality Impact Assessment
 

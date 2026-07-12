@@ -167,3 +167,7 @@ If you are preparing customers for the June 1 shift, do this first:
 8. use separate org segmentation only if cost-center boundaries already support it
 
 This is boring on purpose. Cheap defaults first. Premium access by exception. Measurement before expansion.
+
+---
+
+**Next:** [Outcome per Token →](13-outcome-per-token.md)

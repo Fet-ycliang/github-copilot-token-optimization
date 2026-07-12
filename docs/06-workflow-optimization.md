@@ -302,6 +302,8 @@ The most expensive tokens are the ones spent reaching a *wrong* outcome: an agen
 
 **Rule of thumb:** plan with the strong model, execute with the cheap one, and put the plan on disk in between. The outcome is reached in fewer total tokens *and* is usually higher quality, because the plan was reviewed before a single line was written.
 
+For the fuller outcome-per-token frame, skill taxonomy, benchmark caveats, and current model routing matrix, see [Outcome per Token](13-outcome-per-token.md).
+
 ---
 
 **Next:** [The AGENTS.md Problem →](07-agents-md-problem.md)

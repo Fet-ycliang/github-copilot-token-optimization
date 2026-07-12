@@ -251,6 +251,49 @@ Conversation history accumulates. After 20+ messages, you might have 50K+ tokens
 
 **How to preserve continuity:** Summarize key decisions in your new prompt. "Continuing from auth refactor — we chose JWT over sessions. Now implement refresh tokens."
 
+## 2.3.7 Persistent Graphs — Replace Per-Session File Reads
+
+The per-session codebase-read pattern is a hidden input cost: every new agent session starts from scratch, re-reading the same structural files to understand imports, call paths, and component layout. On large repos, orientation reads can burn thousands of tokens before the agent makes one useful edit.
+
+[Graphify](https://github.com/Graphify-Labs/graphify) attacks that cost differently from prompt compression. It parses the repo once with tree-sitter AST, writes a persistent `graphify-out/graph.json`, and lets agents query that graph instead of repeatedly reading source files for structure.
+
+```bash
+uv tool install graphifyy
+
+# Build or update the graph in the repo
+graphify .
+
+# Query targeted structure instead of reading broad files
+graphify query "where is auth middleware?"
+graphify explain "UserService"
+graphify path "Router" "Database"
+```
+
+Core outputs:
+
+```text
+graphify-out/
+├── graph.json       queryable graph for agents
+├── graph.html       interactive visual explorer
+└── GRAPH_REPORT.md  human-readable communities, god nodes, and suggested questions
+```
+
+**When this helps most:**
+
+- large codebases where agents routinely start by reading 5-10 files for orientation
+- repeated agent sessions over the same repo
+- cross-file questions where a path/query answer is cheaper than broad file reads
+- teams that can share the same graph build across developers or agents
+
+**When to skip:** tiny repos where the agent reads two files and finishes. The one-time graph build is overhead if there is no repeated navigation cost to amortize.
+
+**Caveats:**
+
+- Code extraction is local and deterministic for the AST pass; optional semantic/deep extraction over docs, PDFs, images, or media may use a configured AI backend.
+- The graph can go stale after large refactors. Rebuild it or use Graphify's update/watch/hook flows where appropriate.
+- `GRAPH_REPORT.md` is generated output. Treat it as a map, not the source of truth.
+- Graphify complements RTK. Graphify reduces repeated codebase-navigation input; RTK compresses verbose shell/tool output.
+
 ---
 
 **Next:** [Output Control →](05-output-control.md)

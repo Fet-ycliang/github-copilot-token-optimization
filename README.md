@@ -8,7 +8,7 @@
 
 ---
 
-## Quick Start — 12 Things to Do Right Now
+## Quick Start — 14 Things to Do Right Now
 
 > **June 1, 2026 — Usage-Based Billing (UBB) is live.** GitHub Copilot now bills real tokens (input + output + cached) drawn from pooled AI credits ($30/seat Business, $70/seat Enterprise) instead of request counters. Every technique in this guide translates directly into credit savings — and cache-friendly habits matter more than ever. See [Enterprise Governance](docs/12-enterprise-governance.md) for customer guardrails and [Model Selection & Pricing](docs/11-models-and-pricing.md) for model-cost guidance.
 
@@ -30,13 +30,14 @@ Don't have time to read the full guide? Do these today and cut your token usage:
 | 10 | **Convert rich files to Markdown before AI work** — `.docx`, `.pdf`, `.pptx`, `.xlsx`, HTML, images, audio, video, and ZIPs carry format tax. [Marc Bara's writeup](https://medium.com/@marc.bara.iniesta/your-docx-is-wasting-33-of-your-ai-budget-86a3d229d042) shows the cost; use [Microsoft MarkItDown](https://github.com/microsoft/markitdown) before chat, agent, or RAG ingestion | Reduces noisy input context | 5 minutes |
 | 11 | **Run `/chronicle cost tips` and `/chronicle improve` weekly** (**Copilot CLI only**, experimental) — these slash commands work in interactive Copilot CLI sessions (not VS Code), not as a general Copilot Chat feature. `cost tips` analyzes your token spend and suggests reductions; `improve` finds recurring confusion in your CLI session history and generates custom-instruction fixes so the same misread intent stops costing tokens forever | Cuts recurring rework and direct token spend | 2 minutes per run |
 | 12 | **Try CodeAct for long tool chains** (**Copilot CLI only**, optional external plugin) — [`copilot-codeact-plugin`](https://github.com/jsturtevant/copilot-codeact-plugin) collapses multi-step tool chains into one sandboxed execution, which can reduce repeated replay of system prompt, prior messages, and tool definitions | Reduces tool-loop replay | 10-15 minutes |
-| 13 | **Plan first, then execute in a fresh session** — use plan mode (CLI) or Ask mode (VS Code) to agree the approach with a strong model, save the plan to `plan.md` or an issue, then run the execution from that plan in a clean session — often with a cheaper model. Reaching the right outcome the first time avoids the expensive rework of an agent coding in the wrong direction. See [Plan First, Then Execute §2.5.9](docs/06-workflow-optimization.md#259-plan-first-then-execute-and-route-the-phases) | Avoids wrong-direction rework; cheaper execution lane | 0 minutes (just sequence the work) |
+| 13 | **Plan first, then execute in a fresh session** — use plan mode (CLI) or Ask mode (VS Code) to agree the approach with a strong model, save the plan to `plan.md` or an issue, then run the execution from that plan in a clean session — often with a cheaper model. Reaching the right outcome the first time avoids the expensive rework of an agent coding in the wrong direction. See [Plan First, Then Execute §2.5.9](docs/06-workflow-optimization.md#259-plan-first-then-execute-and-route-the-phases) and [Outcome per Token](docs/13-outcome-per-token.md) | Avoids wrong-direction rework; cheaper execution lane | 0 minutes (just sequence the work) |
+| 14 | **Build a persistent codebase graph with Graphify** (optional, VS Code + Copilot CLI) — [`graphify`](https://github.com/Graphify-Labs/graphify) maps the repo once with tree-sitter AST and writes `graphify-out/graph.json`; agents query the graph instead of re-reading project files each session. Best for large repos where orientation reads dominate agent input. Install: `uv tool install graphifyy` | Reduces repeated file-read input | 5-10 minutes |
 
 **Looking at this from an enterprise or customer-governance angle instead of an individual setup angle?** Start with [Enterprise Governance](docs/12-enterprise-governance.md). That chapter covers AI-credit budgets, per-user tightening, model-access policy, org instructions, and separate-organization tradeoffs.
 
 *Figures above are scoped to the mechanism named in each row, are not additive, and do not equal total bill reduction.*
 
-Output control (#1, #2) pays off immediately and compounds — set it once, save on every call. Structural input control (#3, #6) compounds across every interaction. Model routing (#4, #5) reduces cost at the billing tier. Model-specific prompt tuning (#8) cuts waste by improving first-pass quality. MCP audit (#9) eliminates thousands of hidden tokens per agent task. Markdown conversion (#10) removes DOCX/PDF/HTML layout noise before the model ever sees it.
+Output control (#1, #2) pays off immediately and compounds — set it once, save on every call. Structural input control (#3, #6) compounds across every interaction. Model routing (#4, #5) reduces cost at the billing tier. Model-specific prompt tuning (#8) cuts waste by improving first-pass quality. MCP audit (#9) eliminates thousands of hidden tokens per agent task. Markdown conversion (#10) removes DOCX/PDF/HTML layout noise before the model ever sees it. Graph-based navigation (#14) front-loads codebase orientation once, then reuses it across agent sessions.
 
 ---
 
@@ -114,6 +115,14 @@ Dedicated chapter for customer-facing admin guidance: usage-based billing guardr
 
 ---
 
+### Part 4.4: Outcome per Token
+
+Dedicated chapter for the shift from token minimization to value per token: plan-first execution, prompt-skill progression, model routing, benchmark caveats, and day-to-day model choices under usage-based billing.
+
+→ **[Read Part 4.4](docs/13-outcome-per-token.md)**
+
+---
+
 Need the glossary, quick terms, tools, or core external links? Go to [Guide Home](docs/index.md).
 
 ---
@@ -128,8 +137,9 @@ Ranked by cost impact. Output first — it costs 5× more per token than input.
 4. **Audit MCP servers and injected tools** — disable unused servers/extensions, or use a clean coding profile/custom agent, to save 5K-190K tokens per agent task
 5. **Auto model selection** — lower-cost default routing plus paid-plan discount on eligible usage, zero effort
 6. **Convert rich files to Markdown first** — avoid paying for Word/PDF/HTML layout noise in chat, agent, and RAG workflows
-7. **Retune prompts to the target model** — better first-pass output reduces repeated clarification turns
-8. **Precise prompts** — 20-40% of user-prompt input tokens; more important for quality than raw savings
+7. **Build a persistent codebase graph** — use Graphify on large repos so agents query `graph.json` instead of re-reading structural files every session
+8. **Retune prompts to the target model** — better first-pass output reduces repeated clarification turns
+9. **Precise prompts** — 20-40% of user-prompt input tokens; more important for quality than raw savings
 
 ---
 

@@ -341,6 +341,44 @@ Commands with verbose output (test failures, large diffs) see the biggest reduct
 
 Combine with `copilot-setup-steps.yml` (§4.3.2) and precise issue descriptions (§4.3.3) for maximum session efficiency. Full setup, command list, and other AI tool support: [MCP & Tool Costs §2.7.7](08-mcp-tool-costs.md#277-compress-tool-output-at-the-source-rtk).
 
+### 4.3.7 Build a Persistent Knowledge Graph with Graphify
+
+RTK compresses what shell commands return. [Graphify](https://github.com/Graphify-Labs/graphify) addresses a different cost: tokens spent reading project files to understand structure before the agent can act.
+
+Install once:
+
+```bash
+uv tool install graphifyy
+```
+
+Build or update the graph in the repo:
+
+```bash
+graphify .
+```
+
+Then query targeted structure:
+
+```text
+graphify query "where is error handling for the API layer?"
+graphify path "AuthService" "Database"
+graphify explain "QueueWorker"
+```
+
+The graph lives in `graphify-out/graph.json`. The human-readable map is `graphify-out/GRAPH_REPORT.md`; the visual explorer is `graphify-out/graph.html`.
+
+**Biggest gains:** Coding Agent and agent-mode sessions on large repos where the first several steps are file reads for orientation. Graphify front-loads that structural scan once and amortizes it across later sessions.
+
+**Team choice:** decide whether to commit `graphify-out/graph.json` and `GRAPH_REPORT.md` so agents share the same map, or `.gitignore` `graphify-out/` and let each developer build locally. Do not commit graphs that expose sensitive source relationships if your repo policy treats them as restricted metadata.
+
+**Combine with:**
+
+- `copilot-setup-steps.yml` (§4.3.2) so the agent environment is deterministic before graph queries matter
+- precise issue descriptions (§4.3.3) so the agent queries the right subgraph, not the whole repo map
+- fresh execution sessions ([Outcome per Token](13-outcome-per-token.md)) so the graph supplements a short plan instead of a long transcript
+
+Note: code parsing is local for the AST pass. Optional semantic/deep extraction over docs, PDFs, images, or media may use a configured AI backend. Review that boundary before enabling extras on proprietary codebases.
+
 ## 4.4 Building the Habit
 
 ### Start Small

@@ -26,6 +26,7 @@ Practical guide to reducing GitHub Copilot token spend while keeping answers and
 7. Convert DOCX/PDF/Office/media inputs to Markdown before AI work; start with [MarkItDown](https://github.com/microsoft/markitdown).
 8. Audit long-running agent sessions and repeated back-and-forth.
 9. Install [RTK](https://github.com/rtk-ai/rtk) — CLI proxy that filters `git`, test runners, `grep`, and 100+ other shell commands before output reaches the agent. One install, 60-90% savings on tool-call results in agent and coding-agent sessions.
+10. Build a persistent codebase graph with [Graphify](https://github.com/Graphify-Labs/graphify) — map code once via tree-sitter AST, write `graphify-out/graph.json`, then let agents query the graph instead of re-reading project files each session. Install: `uv tool install graphifyy`.
 
 ## Read by Topic
 
@@ -46,6 +47,7 @@ Practical guide to reducing GitHub Copilot token spend while keeping answers and
 - [Practical Setup](10-practical-setup.md)
 - [Model Selection & Pricing](11-models-and-pricing.md)
 - [Enterprise Governance](12-enterprise-governance.md)
+- [Outcome per Token](13-outcome-per-token.md)
 
 ## Quick Terms
 
@@ -66,6 +68,7 @@ Practical guide to reducing GitHub Copilot token spend while keeping answers and
 - [LLMLingua](https://github.com/microsoft/LLMLingua)
 - [Caveman project](https://github.com/JuliusBrussee/caveman)
 - [RTK — Rust Token Killer](https://github.com/rtk-ai/rtk)
+- [Graphify](https://github.com/Graphify-Labs/graphify) — build a persistent knowledge graph of your codebase; agents query `graphify-out/graph.json` instead of re-reading files. Supports GitHub Copilot, VS Code workflows, and other assistants. PyPI package: `graphifyy`
 - [Microsoft MarkItDown](https://github.com/microsoft/markitdown) — convert PDF, Office files, images, audio, HTML, ZIP contents, YouTube URLs, EPUBs, and more to Markdown for LLM workflows
 - [Marc Bara: "Your .docx Is Wasting 33% of Your AI Budget"](https://medium.com/@marc.bara.iniesta/your-docx-is-wasting-33-of-your-ai-budget-86a3d229d042)
 - [Dina Berry: "How I Cut Token Usage from 52% to 13%"](https://dfberry.github.io/2026-05-06-tuning-up-copilot-context) — real measured numbers from a Copilot CLI production setup (Microsoft/GitHub content contributor)
