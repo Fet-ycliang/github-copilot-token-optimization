@@ -254,6 +254,12 @@ Skills behave differently: only the **title and description** load upfront. The 
 
 **Rule:** Use MCPs for capabilities needed on most interactions. Use skills for occasional capabilities — you pay the full schema cost per turn with MCPs, but only per invocation with skills. If a tool is used in 1 in 10 conversations, a skill is roughly 10× cheaper in context overhead.
 
+### Optional: minimal-context-tools
+
+[`minimal-context-tools`](https://github.com/SebastienDegodez/copilot-instructions/tree/main/plugins/minimal-context-tools) packages this idea as skills for common low-token CLI patterns: `fd` for file discovery, `rg` for targeted text search, `jq`/`yq` for structured data, `ast-grep` for syntax-aware code queries, and `tokei` for code statistics.
+
+Use it as a behavior layer, not as another always-on MCP server. The point is to make the agent ask narrower questions before any output filter runs. It pairs well with RTK or snip: skills reduce how much the agent requests; RTK/snip reduce how much comes back.
+
 ## 4.3 GitHub Coding Agent Considerations
 
 The Coding Agent runs autonomous sessions that can last minutes to hours. Token savings compound over those long sessions.
@@ -333,7 +339,7 @@ rtk init --copilot
 # Restart VS Code
 ```
 
-RTK installs a PreToolUse hook into the current repository. Repeat per repo — there is no global VS Code Copilot install. Once active, the hook is transparent: your terminal is unchanged; only the agent's Bash tool calls are intercepted.
+RTK installs a PreToolUse hook into the current repository. Newer RTK builds also document a global Copilot hook path; validate that path on your Copilot surface before making it a team default. Once active, the hook is transparent: your terminal is unchanged; only the agent's Bash tool calls are intercepted.
 
 On Windows, validate RTK before recommending it to a team. The hook path can be more fragile across PowerShell, Git Bash, WSL, and VS Code agent execution. If RTK adds setup friction or command failures, skip it and focus first on clean profiles, fewer MCP servers, precise prompts, and shorter command output.
 
@@ -378,6 +384,60 @@ The graph lives in `graphify-out/graph.json`. The human-readable map is `graphif
 - fresh execution sessions ([Outcome per Token](13-outcome-per-token.md)) so the graph supplements a short plan instead of a long transcript
 
 Note: code parsing is local for the AST pass. Optional semantic/deep extraction over docs, PDFs, images, or media may use a configured AI backend. Review that boundary before enabling extras on proprietary codebases.
+
+### 4.3.8 Compress Shell Command Output with snip
+
+[`snip`](https://github.com/edouard-claude/snip) is the closest practical alternative to RTK for Copilot-oriented shell-output compression. It runs commands normally, filters the output through declarative YAML pipelines, and can track local savings with `snip gain`.
+
+Install:
+
+```bash
+brew install edouard-claude/tap/snip
+# or:
+go install github.com/edouard-claude/snip/cmd/snip@latest
+```
+
+Set up Copilot CLI:
+
+```bash
+snip init --agent copilot
+```
+
+Use snip when you want project-specific or team-maintained filters without recompiling a tool. A filter can match a command/subcommand and apply actions like `head`, `tail`, `keep_lines`, `remove_lines`, `json_extract`, `regex_extract`, `group_by`, `dedup`, or `aggregate`.
+
+Example filter shape:
+
+```yaml
+name: "my-test-summary"
+match:
+  command: "my-test-runner"
+pipeline:
+  - action: "keep_lines"
+    pattern: "FAIL|ERROR|expected|actual"
+  - action: "head"
+    n: 80
+```
+
+**Team rollout:** start with one repo and one shell surface. Validate that failed tests, diffs, and build errors still preserve enough detail for the agent to fix the problem. Do not enable RTK and snip on the same command path by default; choose one filter layer and measure.
+
+### 4.3.9 Use a Session Harness Checklist
+
+A "harness" is not a separate install here. It is the stable set of controls around an agent session:
+
+```text
+model + mode + agent/profile + active MCP/tools + output filter + repo instructions
+```
+
+Before a long agent run, set those once and keep them stable. Changing them mid-session can invalidate cached prefixes and make the agent carry stale context under a new tool set.
+
+Use this checklist:
+
+1. Pick the mode: Ask/Edit/Agent/Coding Agent.
+2. Pick the model lane or Auto.
+3. Disable unused MCP servers and extension-provided tools.
+4. Pick one command-output filter if needed: RTK or snip.
+5. Use Graphify if repeated codebase orientation dominates.
+6. Start a fresh session if you need to change the lane.
 
 ## 4.4 Building the Habit
 

@@ -165,11 +165,14 @@ Don't enable every MCP server globally. Use workspace-level configuration:
 6. **Use skills instead of MCPs for occasional capabilities** — MCP tool schemas load on every step whether used or not. Skills load only title and description upfront; the full content pulls on demand. If a capability is used in fewer than half your sessions, a skill is cheaper. See [Practical Setup §4.2](10-practical-setup.md#mcps-vs-skills-eager-vs-lazy-context-loading) for the full comparison
 7. **Optional, Copilot CLI only: try CodeAct for long tool chains** — external plugin [`copilot-codeact-plugin`](https://github.com/jsturtevant/copilot-codeact-plugin) collapses many small tool hops into one sandboxed execution. That does not shrink any one server's schema, but it can reduce how often the full tool catalog gets replayed on CLI-heavy tasks
 8. **Use a focused custom agent for repeat coding workflows** — a custom agent can carry a narrow tool list and stable instructions, so the same coding workflow starts with the same active surface instead of whatever the default chat currently exposes. Where your Copilot surface supports model selection in agent/profile files, pin the intended model there too
-9. **Compress tool output at the source with RTK** — [RTK (Rust Token Killer)](https://github.com/rtk-ai/rtk) is a CLI proxy that filters the *results* of shell commands before they reach the agent. Confirmed to work well in VS Code Copilot on macOS/Linux with repo-by-repo setup. Treat Windows as experimental and validate before rolling it out broadly. Reductions are real but vary by command and project output volume. See §2.7.7
+9. **Compress tool output at the source with RTK or snip** — [RTK (Rust Token Killer)](https://github.com/rtk-ai/rtk) and [`snip`](https://github.com/edouard-claude/snip) are CLI proxies that filter the *results* of shell commands before they reach the agent. Reductions are real but vary by command, project output volume, and hook reliability. See §2.7.7 and §2.7.8
+10. **Use minimal-context skills before adding more tools** — [`minimal-context-tools`](https://github.com/SebastienDegodez/copilot-instructions/tree/main/plugins/minimal-context-tools) packages skills for `rg`, `fd`, `jq`, `yq`, `ast-grep`, and related CLIs. The pattern is cheap because it steers the agent toward precise one-shot commands before any large output exists. Pair it with RTK/snip when shell output is still noisy.
 
 ## 2.7.7 Compress Tool Output at the Source: RTK
 
 MCP schema overhead is the cost *before* any work. Separately, every shell command the agent runs produces output that becomes input tokens on the next step. A failing `cargo test` or `git diff` on a large PR can return 10,000–25,000 tokens of raw text — passing test lines, unchanged diff context, build noise — that the agent reads in full.
+
+Copilot already has harness-level savings: prompt caching, deferred tool schemas, WebSocket transport, context compaction, and large-output caps. Those features do not replace output filters. VS Code's terminal tool uses a hard head/tail-style output limit; Copilot CLI also warns the model to limit output and filter with `head`, `tail`, `grep`, or `awk`. That is useful safety net behavior, not semantic parsing. RTK and snip act earlier: they turn verbose command output into a smaller domain-specific summary before the harness has to truncate it.
 
 [**RTK (Rust Token Killer)**](https://github.com/rtk-ai/rtk) is a CLI proxy that sits between the shell and the agent. It runs the original command, captures the output, applies per-command filters (noise removal, keeping only failing tests, deduplicating log lines, grouping file listings), and returns the compressed result. The agent sees smaller output; its behavior is otherwise unchanged.
 
@@ -205,17 +208,19 @@ curl -fsSL https://raw.githubusercontent.com/rtk-ai/rtk/refs/heads/master/instal
 
 **Windows caveat:** RTK is strongest today on Unix-like shell paths. On Windows, shell-hook behavior and path handling can be brittle, especially across PowerShell, Git Bash, WSL, and VS Code agent execution. Treat it as a pilot, not a default recommendation: test it on the exact repo and shell your team uses, and skip it if the setup causes command failures or noisy behavior.
 
-**Setting up for VS Code Copilot — per-repo:**
+**Setting up for Copilot:**
 
-For VS Code Copilot, RTK installs a PreToolUse hook scoped to the current repository. Run this once inside each repo where you want RTK active:
+For Copilot, RTK installs a PreToolUse hook and awareness instructions. Project-scoped setup writes into `.github/`; newer RTK builds also document a global Copilot install under `~/.copilot/` / `$COPILOT_HOME`. Validate on your Copilot surface before rolling it out because hook contracts move faster than static docs.
 
 ```bash
 cd your-repo
 rtk init --copilot
-# Restart VS Code
+
+# Optional global Copilot setup where supported by your RTK version:
+rtk init -g --copilot
 ```
 
-This is a per-repo setup — there is no single global install that covers all VS Code workspaces. Once enabled in a repo, the hook is transparent: your terminal commands are unchanged; only the agent's Bash tool calls are intercepted.
+Once enabled, the hook is transparent: your terminal commands are unchanged; only the agent's Bash tool calls are intercepted. If your environment does not support the global Copilot hook path reliably, keep the per-repo setup and document it for each team workspace.
 
 **Other AI tools (global install available):**
 
@@ -230,7 +235,73 @@ rtk init --agent cline        # Cline / Roo Code (project-level)
 
 **Pairs with MCP reduction:** Schema audit (§2.7.4–2.7.6) cuts the definition cost that reloads every step. RTK cuts what each tool call *returns*. Both address different parts of the token budget and work together.
 
-## 2.7.8 Case Study: Scoping a Large Plugin — Azure MCP
+## 2.7.8 RTK Alternative: snip
+
+[`snip`](https://github.com/edouard-claude/snip) solves the same class of problem as RTK: shell commands still run normally, but the agent receives a filtered result instead of raw noisy output. The main difference is extensibility. RTK ships a compiled Rust command registry; snip uses declarative YAML filters that users and teams can add without touching Go code.
+
+**When snip is most attractive:**
+
+- you want custom filters for project-specific tools
+- you want local savings stats via `snip gain`
+- you prefer YAML filter contribution over compiled command rules
+- you need Copilot CLI hook support and can validate the hook path in your environment
+
+**Install:**
+
+```bash
+brew install edouard-claude/tap/snip
+# or
+go install github.com/edouard-claude/snip/cmd/snip@latest
+```
+
+**Copilot setup:**
+
+```bash
+snip init --agent copilot
+```
+
+At the time of writing, snip's Copilot path writes a `preToolUse` hook for Copilot CLI. VS Code Copilot agent hooks are still a moving surface, so treat VS Code setup as a pilot unless your team has validated the exact version and workspace configuration.
+
+**Filter model:**
+
+```yaml
+name: "git-log"
+match:
+  command: "git"
+  subcommand: "log"
+pipeline:
+  - action: "head"
+    n: 20
+```
+
+Snip supports pipeline actions such as keeping or removing matching lines, head/tail truncation, ANSI stripping, JSON extraction, regex extraction, grouping, deduplication, aggregation, and templates. Project-local filters require trust approval, which is the right default for teams: output filters influence what the model sees, so they should be reviewed like tool configuration.
+
+**RTK vs. snip:**
+
+| Choice | Pick when |
+|--------|-----------|
+| RTK | You want a single Rust binary, broad agent support, and compiled defaults |
+| snip | You want YAML filters, local stats, and easier project/team customization |
+
+Do not stack RTK and snip on the same command path by default. Pick one output-filter layer per agent surface, then measure. Stacking can double-truncate output and make debugging harder.
+
+## 2.7.9 Adjacent Ecosystem: What Else Belongs in the Mental Model
+
+Not every token tool is a direct RTK/snip alternative. Keep these categories separate:
+
+| Tool | Category | Use it for | Caveat |
+|------|----------|------------|--------|
+| [`snip-ai/snip`](https://github.com/snip-ai/snip) | Claude Code-focused output filter | Read/Bash/Grep/Glob optimization with AST-aware code handling | Different project from `edouard-claude/snip`; no Copilot path verified |
+| [Redcon / ContextBudget](https://github.com/natiixnt/ContextBudget) | Context packing + command compression | Team workflows that want command compressors plus CI quality gates | License and product boundary should be reviewed before rollout |
+| [Headroom](https://github.com/headroomlabs-ai/headroom) | Full-stack compression wrapper | Broader file, command, memory, and MCP compression experiments | Validate `headroom wrap copilot` before documenting as standard setup |
+| [Tokalator](https://github.com/vfaraji89/tokalator) | VS Code token visibility | Budget dashboards, model/context-window awareness, instruction-file scans | Monitoring only; does not compress |
+| [token-optimizer](https://github.com/alexgreensh/token-optimizer) | Context audit/status tooling | Auditing stale memory, configs, compaction loss, and model routing | PolyForm Noncommercial license |
+| [Caveman](https://github.com/JuliusBrussee/caveman) | Model-output compression | Shorter assistant responses and terse style packs | Does not reduce shell-command input; prompt overhead matters |
+| [ACON](https://github.com/microsoft/acon) | Research framework | Academic grounding for long-horizon context compression | Not a drop-in developer tool |
+
+The practical stack is: keep Copilot's harness stable, reduce always-loaded MCP/schema overhead, steer the agent toward precise commands, then use one semantic output filter where command output is still large.
+
+## 2.7.10 Case Study: Scoping a Large Plugin — Azure MCP
 
 A single plugin can dominate your `System/Tools` budget. Dina Berry (Microsoft/GitHub content contributor) audited her Copilot CLI setup with `/context` and found the Azure MCP plugin loading **~27K tokens per message** by default — more than all her other MCP servers combined.
 

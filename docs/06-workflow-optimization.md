@@ -95,11 +95,11 @@ When not to use it:
 
 Keep the claim bounded: this guide is **not** benchmarking CodeAct itself. The plugin README reports lower token use on its own benchmark prompts, including MCP-loaded cases, but that is plugin-reported task data, not a universal savings baseline.
 
-### Complementary: RTK for tool output compression
+### Complementary: RTK or snip for tool output compression
 
-CodeAct reduces the *number* of tool calls. [**RTK (Rust Token Killer)**](https://github.com/rtk-ai/rtk) reduces the *size* of each tool call's result. They address different sides of the same problem and can be used together.
+CodeAct reduces the *number* of tool calls. [**RTK (Rust Token Killer)**](https://github.com/rtk-ai/rtk) and [`snip`](https://github.com/edouard-claude/snip) reduce the *size* of each shell tool result. They address different sides of the same problem and can be used together.
 
-RTK is a CLI proxy that intercepts `git`, `cargo test`, `grep`, `ls`, and 100+ other dev commands and compresses their output before it reaches the agent — 60–90% savings per command. Unlike CodeAct, RTK is not limited to Copilot CLI; it can help across Copilot surfaces when the shell hook is reliable. Treat Windows setups as a pilot, not a default rollout. See [MCP & Tool Costs §2.7.7](08-mcp-tool-costs.md#277-compress-tool-output-at-the-source-rtk) for setup and the full command list.
+These tools intercept `git`, test runners, `grep`, `ls`, and other dev commands and compress their output before it reaches the agent — often 60–90% savings on verbose command output. Unlike CodeAct, this is not about Copilot CLI only; it can help anywhere the shell hook is reliable. Treat Windows and preview hook paths as pilots, not default rollouts. See [MCP & Tool Costs §2.7.7](08-mcp-tool-costs.md#277-compress-tool-output-at-the-source-rtk) and [§2.7.8](08-mcp-tool-costs.md#278-rtk-alternative-snip) for setup.
 
 ## 2.5.4 Default to Auto Model Selection
 
@@ -303,6 +303,35 @@ The most expensive tokens are the ones spent reaching a *wrong* outcome: an agen
 **Rule of thumb:** plan with the strong model, execute with the cheap one, and put the plan on disk in between. The outcome is reached in fewer total tokens *and* is usually higher quality, because the plan was reviewed before a single line was written.
 
 For the fuller outcome-per-token frame, skill taxonomy, benchmark caveats, and current model routing matrix, see [Outcome per Token](13-outcome-per-token.md).
+
+## 2.5.10 Layer Tooling on Top of the Copilot Harness
+
+Copilot CLI and VS Code Copilot already optimize parts of the agent loop. Treat that as the baseline before adding external tools:
+
+- **Prompt/cache layer:** keep `{model, active MCP set, active agent/profile}` stable so cached prefixes stay reusable.
+- **Tool-schema layer:** prefer built-in tools and scoped MCPs; Copilot can defer or route some tool definitions, but extra servers and extensions still add surface area.
+- **Transport/session layer:** WebSocket reuse and automatic compaction help long agent runs, but compaction summarizes what the agent already saw.
+- **Terminal-output layer:** built-in truncation is a safety net, not a semantic filter.
+
+Add third-party tools only for the layer they actually improve:
+
+| Layer | Tooling | What it reduces |
+|-------|---------|-----------------|
+| Workflow turns | CodeAct | Repeated replay from many small tool calls in Copilot CLI |
+| Command output | RTK or snip | Verbose `git`, test, grep, build, and infra command output |
+| Command choice | minimal-context-tools | Broad file reads and iterative searching by steering toward `rg`, `fd`, `jq`, `ast-grep` |
+| Codebase orientation | Graphify | Repeated structural file reads across sessions |
+| Visibility/audit | Tokalator, token-optimizer | Waste you would otherwise miss; not compression by itself |
+
+**Rule:** one tool per layer. Combining CodeAct with RTK or snip can make sense because one reduces turn count and the other reduces output size. Running RTK and snip on the same command path usually does not — it can double-truncate output and make failures harder to inspect.
+
+Use this order when tuning a session:
+
+1. Pick the Copilot lane once: model, mode, active MCP/tool set, and agent/profile.
+2. Disable unused MCP servers and extension-provided tools.
+3. Use skills or focused agent instructions to make tool calls precise.
+4. Add one shell-output filter if command output is still large.
+5. Start a fresh session when changing lanes instead of mutating a long thread.
 
 ---
 

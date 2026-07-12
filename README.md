@@ -26,7 +26,7 @@ Don't have time to read the full guide? Do these today and cut your token usage:
 | 6 | **Scope context with `applyTo:` paths** — split one large instructions file into small scoped ones that load only when relevant | Reduces always-on input/context | 15 minutes |
 | 7 | **Be precise in your prompts** — "Add null check to `getUser()`" not "Can you please look at this and maybe add some error handling?" Note: your typed prompt is a small fraction of total input; precision matters more for quality than for raw token savings | Improves task targeting | 0 minutes |
 | 8 | **Retune prompts to the target model** — provider prompting guides change by model/version. Paste the official guide URL into Copilot and ask it to adapt `.github/copilot-instructions.md`, agent profiles, or app prompts for the model you actually use | Reduces rework | 10 minutes per model change |
-| 9 | **Audit your MCP servers and injected tools** — disable unused MCP servers and VS Code extensions that add skills/tools; use a clean coding profile or focused custom agent for repeat workflows. Each MCP tool costs ~100-500 tokens per agent step | Removes tool/schema overhead | 5-10 minutes |
+| 9 | **Audit your MCP servers and injected tools** — disable unused MCP servers and VS Code extensions that add skills/tools; use a clean coding profile or focused custom agent for repeat workflows. Each MCP tool costs ~100-500 tokens per agent step. If shell output is still large after that, evaluate one output filter such as [RTK](https://github.com/rtk-ai/rtk) or [`snip`](https://github.com/edouard-claude/snip) | Removes tool/schema overhead and noisy command output | 5-10 minutes |
 | 10 | **Convert rich files to Markdown before AI work** — `.docx`, `.pdf`, `.pptx`, `.xlsx`, HTML, images, audio, video, and ZIPs carry format tax. [Marc Bara's writeup](https://medium.com/@marc.bara.iniesta/your-docx-is-wasting-33-of-your-ai-budget-86a3d229d042) shows the cost; use [Microsoft MarkItDown](https://github.com/microsoft/markitdown) before chat, agent, or RAG ingestion | Reduces noisy input context | 5 minutes |
 | 11 | **Run `/chronicle cost tips` and `/chronicle improve` weekly** (**Copilot CLI only**, experimental) — these slash commands work in interactive Copilot CLI sessions (not VS Code), not as a general Copilot Chat feature. `cost tips` analyzes your token spend and suggests reductions; `improve` finds recurring confusion in your CLI session history and generates custom-instruction fixes so the same misread intent stops costing tokens forever | Cuts recurring rework and direct token spend | 2 minutes per run |
 | 12 | **Try CodeAct for long tool chains** (**Copilot CLI only**, optional external plugin) — [`copilot-codeact-plugin`](https://github.com/jsturtevant/copilot-codeact-plugin) collapses multi-step tool chains into one sandboxed execution, which can reduce repeated replay of system prompt, prior messages, and tool definitions | Reduces tool-loop replay | 10-15 minutes |
@@ -37,7 +37,7 @@ Don't have time to read the full guide? Do these today and cut your token usage:
 
 *Figures above are scoped to the mechanism named in each row, are not additive, and do not equal total bill reduction.*
 
-Output control (#1, #2) pays off immediately and compounds — set it once, save on every call. Structural input control (#3, #6) compounds across every interaction. Model routing (#4, #5) reduces cost at the billing tier. Model-specific prompt tuning (#8) cuts waste by improving first-pass quality. MCP audit (#9) eliminates thousands of hidden tokens per agent task. Markdown conversion (#10) removes DOCX/PDF/HTML layout noise before the model ever sees it. Graph-based navigation (#14) front-loads codebase orientation once, then reuses it across agent sessions.
+Output control (#1, #2) pays off immediately and compounds — set it once, save on every call. Structural input control (#3, #6) compounds across every interaction. Model routing (#4, #5) reduces cost at the billing tier. Model-specific prompt tuning (#8) cuts waste by improving first-pass quality. MCP audit (#9) eliminates thousands of hidden tokens per agent task; RTK/snip-style output filters address the separate cost of verbose shell results. Markdown conversion (#10) removes DOCX/PDF/HTML layout noise before the model ever sees it. Graph-based navigation (#14) front-loads codebase orientation once, then reuses it across agent sessions.
 
 ---
 
@@ -79,7 +79,7 @@ Research on LLM-generated context files suggests they often hurt agent correctne
 
 #### [2.7 MCP & Tool Costs](docs/08-mcp-tool-costs.md)
 
-The hidden token tax: each MCP tool costs 100-500 tokens per agent step. 15 servers × 15 steps = 265K tokens of overhead. Audit guide included.
+The hidden token tax: each MCP tool costs 100-500 tokens per agent step. 15 servers × 15 steps = 265K tokens of overhead. Covers MCP audit, Copilot harness baseline, RTK, snip, minimal-context-tools, and adjacent output/context-compression tools.
 
 ---
 

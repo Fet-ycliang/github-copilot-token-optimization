@@ -107,17 +107,23 @@ The complete comparison of every technique covered in this guide:
 | J2 | Per-workspace MCP config | Variable | — | None | Medium | Multi-project setups |
 | J3 | Minimize tool calls (instructions) | 10-30% | — | Neutral | Low | Agent mode |
 | J4 | Compress tool output with [RTK](https://github.com/rtk-ai/rtk) | 60-90% of shell cmd output | — | None | Low | Agent / Coding Agent — any AI tool |
+| J5 | Compress tool output with [snip](https://github.com/edouard-claude/snip) | 60-90% of shell cmd output; command-specific examples report higher | — | None | Low | Copilot CLI / agent shells where hook path is validated |
+| J6 | Use minimal-context skills before more tools | 70-95% on targeted search/query patterns (tool-reported) | — | Improves targeting | Medium | Agent workflows that repeatedly search/read too broadly |
+| J7 | Evaluate broad compression wrappers (Redcon / Headroom) | Tool-reported; varies by command/context pack | — | Depends | Medium | Teams willing to validate external wrappers and licenses |
 | **Agent Mode Configuration** |
 | K1 | Precise prompts + acceptance criteria | 30-60% | — | Improves | Low | Agent tasks |
 | K2 | Plan files for complex tasks | 15-40% | — | Improves | Medium | Multi-step agent tasks |
 | K3 | Cap agent maxRequests | Variable | — | Risk truncation | Low | All agent tasks |
 | K4 | Mode selection (Ask/Edit/Agent) | 60-90% | — | Good | Low | Every interaction |
+| K5 | CodeAct for long Copilot CLI tool chains | 49-69% input tokens in plugin benchmarks | — | Depends | Medium | Copilot CLI exploration/audit sessions |
 
 > †A1/A2 output savings require system-level terse output instructions (see B5). Writing terse prompts alone saves input tokens; output tokens are only reduced if the model is instructed to respond tersely.
 
 > C5 source: Marc Bara's [Your .docx Is Wasting 33% of Your AI Budget](https://medium.com/@marc.bara.iniesta/your-docx-is-wasting-33-of-your-ai-budget-86a3d229d042). Use [Microsoft MarkItDown](https://github.com/microsoft/markitdown) when non-text files need to enter an AI workflow.
 
 > C6 source: [Graphify benchmarks](https://github.com/Graphify-Labs/graphify/blob/main/BENCHMARKS.md) and project documentation. Treat the high-end 71.5× number as structural-navigation best case on large codebases, not a universal savings guarantee.
+
+> J5-J7/K5 sources are external project-reported numbers, not independent guide benchmarks. Treat them as candidates to pilot, not universal bill-reduction guarantees. Do not stack multiple shell-output filters on the same command path without measuring for lost detail.
 
 ### The Big Winners
 

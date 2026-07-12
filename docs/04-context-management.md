@@ -292,7 +292,7 @@ graphify-out/
 - Code extraction is local and deterministic for the AST pass; optional semantic/deep extraction over docs, PDFs, images, or media may use a configured AI backend.
 - The graph can go stale after large refactors. Rebuild it or use Graphify's update/watch/hook flows where appropriate.
 - `GRAPH_REPORT.md` is generated output. Treat it as a map, not the source of truth.
-- Graphify complements RTK. Graphify reduces repeated codebase-navigation input; RTK compresses verbose shell/tool output.
+- Graphify complements RTK or snip. Graphify reduces repeated codebase-navigation input; shell-output filters compress verbose command results.
 
 ---
 
