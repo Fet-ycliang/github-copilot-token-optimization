@@ -78,8 +78,8 @@
       "type": "arrow",
       "x": 440,
       "y": 415,
-      "width": 80,
-      "height": -5,
+      "width": 60,
+      "height": 0,
       "angle": 0,
       "strokeColor": "#dc2626",
       "backgroundColor": "transparent",
@@ -107,8 +107,8 @@
           0
         ],
         [
-          80,
-          -5
+          60,
+          0
         ]
       ],
       "lastCommittedPoint": null,
@@ -120,8 +120,8 @@
     {
       "id": "txt_710",
       "type": "text",
-      "x": 395.0,
-      "y": 383.74,
+      "x": 385.0,
+      "y": 386.24,
       "width": 170,
       "height": 20.0,
       "angle": 0,
@@ -155,9 +155,9 @@
     {
       "id": "arrow_11",
       "type": "arrow",
-      "x": 890,
-      "y": 410,
-      "width": 80,
+      "x": 910,
+      "y": 415,
+      "width": 60,
       "height": 0,
       "angle": 0,
       "strokeColor": "#2563eb",
@@ -186,7 +186,7 @@
           0
         ],
         [
-          80,
+          60,
           0
         ]
       ],
@@ -199,8 +199,8 @@
     {
       "id": "txt_711",
       "type": "text",
-      "x": 845.0,
-      "y": 381.24,
+      "x": 855.0,
+      "y": 386.24,
       "width": 170,
       "height": 20.0,
       "angle": 0,
@@ -298,10 +298,10 @@
     {
       "id": "shape_101",
       "type": "rectangle",
-      "x": 520,
-      "y": 230,
-      "width": 370,
-      "height": 360,
+      "x": 500,
+      "y": 220,
+      "width": 410,
+      "height": 380,
       "angle": 0,
       "strokeColor": "#2563eb",
       "backgroundColor": "#dbeafe",
@@ -327,10 +327,10 @@
     {
       "id": "txt_601",
       "type": "text",
-      "x": 520,
-      "y": 342.9,
-      "width": 370,
-      "height": 137.5,
+      "x": 500,
+      "y": 333.14,
+      "width": 410,
+      "height": 157.5,
       "angle": 0,
       "strokeColor": "#14213d",
       "backgroundColor": "transparent",
@@ -350,13 +350,13 @@
       "updated": 1,
       "link": null,
       "locked": false,
-      "text": "SCOPED\nloads by path\n\n.github/instructions/*.md\napplyTo: src/api/**",
-      "fontSize": 22,
+      "text": "SCOPED\nloads by path\n\n.github/instructions/*.md\n\napplyTo: src/api/**",
+      "fontSize": 21,
       "fontFamily": 3,
       "textAlign": "center",
       "verticalAlign": "middle",
       "containerId": null,
-      "originalText": "SCOPED\nloads by path\n\n.github/instructions/*.md\napplyTo: src/api/**",
+      "originalText": "SCOPED\nloads by path\n\n.github/instructions/*.md\n\napplyTo: src/api/**",
       "lineHeight": 1.22
     },
     {

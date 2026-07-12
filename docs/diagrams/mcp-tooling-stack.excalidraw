@@ -79,7 +79,7 @@
       "x": 290,
       "y": 280,
       "width": 0,
-      "height": 350,
+      "height": 370,
       "angle": 0,
       "strokeColor": "#dc2626",
       "backgroundColor": "transparent",
@@ -107,8 +107,16 @@
           0
         ],
         [
+          -140,
+          0
+        ],
+        [
+          -140,
+          370
+        ],
+        [
           0,
-          350
+          370
         ]
       ],
       "lastCommittedPoint": null,
@@ -123,7 +131,7 @@
       "x": 750,
       "y": 280,
       "width": 0,
-      "height": 350,
+      "height": 370,
       "angle": 0,
       "strokeColor": "#d97706",
       "backgroundColor": "transparent",
@@ -152,7 +160,7 @@
         ],
         [
           0,
-          350
+          370
         ]
       ],
       "lastCommittedPoint": null,
@@ -167,7 +175,7 @@
       "x": 1210,
       "y": 280,
       "width": 0,
-      "height": 350,
+      "height": 370,
       "angle": 0,
       "strokeColor": "#7c3aed",
       "backgroundColor": "transparent",
@@ -195,8 +203,16 @@
           0
         ],
         [
+          150,
+          0
+        ],
+        [
+          150,
+          370
+        ],
+        [
           0,
-          350
+          370
         ]
       ],
       "lastCommittedPoint": null,
@@ -209,9 +225,9 @@
       "id": "arrow_13",
       "type": "arrow",
       "x": 445,
-      "y": 515,
-      "width": 110,
-      "height": 115,
+      "y": 510,
+      "width": 165,
+      "height": 140,
       "angle": 0,
       "strokeColor": "#2563eb",
       "backgroundColor": "transparent",
@@ -239,8 +255,16 @@
           0
         ],
         [
-          110,
-          115
+          0,
+          65
+        ],
+        [
+          165,
+          65
+        ],
+        [
+          165,
+          140
         ]
       ],
       "lastCommittedPoint": null,
@@ -252,8 +276,8 @@
     {
       "id": "txt_713",
       "type": "text",
-      "x": 415.0,
-      "y": 543.74,
+      "x": 442.5,
+      "y": 551.24,
       "width": 170,
       "height": 20.0,
       "angle": 0,
@@ -288,9 +312,9 @@
       "id": "arrow_14",
       "type": "arrow",
       "x": 1060,
-      "y": 515,
-      "width": -115,
-      "height": 115,
+      "y": 510,
+      "width": -170,
+      "height": 140,
       "angle": 0,
       "strokeColor": "#0f766e",
       "backgroundColor": "transparent",
@@ -318,8 +342,16 @@
           0
         ],
         [
-          -115,
-          115
+          0,
+          65
+        ],
+        [
+          -170,
+          65
+        ],
+        [
+          -170,
+          140
         ]
       ],
       "lastCommittedPoint": null,
@@ -331,8 +363,8 @@
     {
       "id": "txt_714",
       "type": "text",
-      "x": 917.5,
-      "y": 533.98,
+      "x": 890.0,
+      "y": 541.48,
       "width": 170,
       "height": 40.0,
       "angle": 0,
@@ -559,7 +591,7 @@
       "id": "shape_103",
       "type": "rectangle",
       "x": 250,
-      "y": 410,
+      "y": 405,
       "width": 390,
       "height": 105,
       "angle": 0,
@@ -588,7 +620,7 @@
       "id": "txt_603",
       "type": "text",
       "x": 250,
-      "y": 434.44,
+      "y": 429.44,
       "width": 390,
       "height": 57.5,
       "angle": 0,
@@ -623,7 +655,7 @@
       "id": "shape_104",
       "type": "rectangle",
       "x": 865,
-      "y": 410,
+      "y": 405,
       "width": 390,
       "height": 105,
       "angle": 0,
@@ -652,7 +684,7 @@
       "id": "txt_604",
       "type": "text",
       "x": 865,
-      "y": 434.44,
+      "y": 429.44,
       "width": 390,
       "height": 57.5,
       "angle": 0,
@@ -687,7 +719,7 @@
       "id": "shape_105",
       "type": "rectangle",
       "x": 95,
-      "y": 630,
+      "y": 650,
       "width": 390,
       "height": 80,
       "angle": 0,
@@ -716,7 +748,7 @@
       "id": "txt_605",
       "type": "text",
       "x": 95,
-      "y": 643.16,
+      "y": 663.16,
       "width": 390,
       "height": 55.0,
       "angle": 0,
@@ -751,7 +783,7 @@
       "id": "shape_106",
       "type": "rectangle",
       "x": 555,
-      "y": 630,
+      "y": 650,
       "width": 390,
       "height": 80,
       "angle": 0,
@@ -780,7 +812,7 @@
       "id": "txt_606",
       "type": "text",
       "x": 555,
-      "y": 643.16,
+      "y": 663.16,
       "width": 390,
       "height": 55.0,
       "angle": 0,
@@ -815,7 +847,7 @@
       "id": "shape_107",
       "type": "rectangle",
       "x": 1015,
-      "y": 630,
+      "y": 650,
       "width": 390,
       "height": 80,
       "angle": 0,
@@ -844,7 +876,7 @@
       "id": "txt_607",
       "type": "text",
       "x": 1015,
-      "y": 643.16,
+      "y": 663.16,
       "width": 390,
       "height": 55.0,
       "angle": 0,

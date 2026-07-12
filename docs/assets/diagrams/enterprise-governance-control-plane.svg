@@ -31,7 +31,7 @@
 <path d="M 925 360 L 1070 242" fill="none" stroke="#d97706" stroke-width="3" marker-end="url(#arrow_d97706)"/>
 <path d="M 1225 300 L 1225 405" fill="none" stroke="#16a34a" stroke-width="3" marker-end="url(#arrow_16a34a)"/>
 <path d="M 1225 540 L 1225 615" fill="none" stroke="#dc2626" stroke-width="3" marker-end="url(#arrow_dc2626)"/>
-<path d="M 1070 660 Q 720 760 235 660" fill="none" stroke="#2563eb" stroke-width="3" marker-end="url(#arrow_2563eb)" stroke-dasharray="9 8"/><rect x="572.5" y="626.0" width="160" height="30" rx="15" fill="#fbfcfe" stroke="none"/><text x="652.5" y="647.0" text-anchor="middle" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="16" font-weight="700" fill="#2563eb">monthly review loop</text>
+<path d="M 1070 660 L 1000 770 L 235 770 L 235 660" fill="none" stroke="#2563eb" stroke-width="3" marker-end="url(#arrow_2563eb)" stroke-dasharray="9 8"/><rect x="155" y="736" width="160" height="30" rx="15" fill="#fbfcfe" stroke="none"/><text x="235" y="757" text-anchor="middle" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="16" font-weight="700" fill="#2563eb">monthly review loop</text>
 <rect x="80" y="185" width="310" height="115" rx="16" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5"/>
 <text x="235.0" y="213.7" text-anchor="middle" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="20" font-weight="600" fill="#14213d">Budgets</text>
 <text x="235.0" y="238.1" text-anchor="middle" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="20" font-weight="600" fill="#14213d">enterprise/org/cost</text>

@@ -254,8 +254,8 @@
       "type": "arrow",
       "x": 1065,
       "y": 570,
-      "width": -160,
-      "height": 105,
+      "width": -340,
+      "height": 55,
       "angle": 0,
       "strokeColor": "#d97706",
       "backgroundColor": "transparent",
@@ -283,12 +283,16 @@
           0
         ],
         [
-          -5,
-          85
+          0,
+          20
         ],
         [
-          -160,
-          105
+          -340,
+          20
+        ],
+        [
+          -340,
+          55
         ]
       ],
       "lastCommittedPoint": null,
@@ -754,10 +758,10 @@
     {
       "id": "shape_108",
       "type": "rectangle",
-      "x": 545,
-      "y": 635,
-      "width": 360,
-      "height": 80,
+      "x": 500,
+      "y": 625,
+      "width": 450,
+      "height": 105,
       "angle": 0,
       "strokeColor": "#7c3aed",
       "backgroundColor": "#ede9fe",
@@ -783,9 +787,9 @@
     {
       "id": "txt_608",
       "type": "text",
-      "x": 545,
-      "y": 631.08,
-      "width": 360,
+      "x": 500,
+      "y": 633.58,
+      "width": 450,
       "height": 90.0,
       "angle": 0,
       "strokeColor": "#14213d",
@@ -806,13 +810,13 @@
       "updated": 1,
       "link": null,
       "locked": false,
-      "text": "Better: handoff\nsummary\nthen fresh session",
+      "text": "Better:\nhandoff summary,\nthen fresh session",
       "fontSize": 24,
       "fontFamily": 3,
       "textAlign": "center",
       "verticalAlign": "middle",
       "containerId": null,
-      "originalText": "Better: handoff\nsummary\nthen fresh session",
+      "originalText": "Better:\nhandoff summary,\nthen fresh session",
       "lineHeight": 1.22
     }
   ],
