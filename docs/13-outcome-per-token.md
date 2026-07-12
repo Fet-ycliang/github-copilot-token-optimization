@@ -168,6 +168,18 @@ Skills are context too. Install only the ones that change the next agent action.
 
 If a skill is not likely to change the next edit, command, test, or review, leave it out. The best skill selection is still context selection.
 
+### Do Not Over-Optimize the Skill Stack
+
+Skill research can become its own token sink. Chasing the perfect library, the perfect subagent, or the "best of the best" workflow often produces no shipped work. The practical ceiling arrives early: a clear plan plus one hard challenge pass is already strong for most tasks.
+
+Use a simple `plan + grill-me` loop before adding more machinery:
+
+1. write the plan with acceptance criteria, likely files, risks, and verification command
+2. ask a second pass to grill the plan: missing edge cases, wrong assumptions, cheaper path, and failure modes
+3. revise once, then execute
+
+Add specialized skills only when they change the next action. If the task is not security-heavy, browser-heavy, QA-heavy, or handoff-heavy, more skill loading is probably context tax.
+
 ### Brainstorming Skill
 
 Use this before the first edit when requirements are ambiguous.
@@ -297,13 +309,12 @@ For most teams:
 
 ### Important Model Caveats
 
-- GPT-5.6 Luna, Terra, and Sol are documented as GA in Copilot, but the model comparison page listed their model cards as "Not available" at research time.[^supported-models]
 - GPT-5.6 Sol is the powerful lane; do not leave it pinned for routine edits.
 - Kimi K2.7 is an open-weight model in Copilot and may require admin opt-in for Business/Enterprise. Treat it as a policy decision, not just a price decision.[^kimi]
 - MAI-Code-1-Flash is documented as a continuously improving model; behavior may evolve as checkpoints change.[^mai]
 - Claude Sonnet 5 promotional pricing was documented through August 31, 2026. Recheck after that date before publishing pricing guidance.[^supported-models]
 - Claude Fable 5 has a data-retention caveat in GitHub docs: Anthropic retains prompts and outputs to operate safety classifiers. Business/Enterprise admins should review terms before enabling it.[^supported-models]
-- FedRAMP enforcement adds a 10% AI credit surcharge, and GPT-5.6 family plus Kimi K2.7 were not on the FedRAMP model list at research time.[^fedramp]
+- FedRAMP and EU DR (Data Residency) enforcement add a 10% AI credit surcharge, and available models can differ by region and compliance boundary.[^fedramp-eu-dr]
 - Legacy annual subscribers may not receive access to new models and features such as GPT-5.6 family, Claude Fable 5, Claude Sonnet 5, or Kimi K2.7 under old billing.[^models-pricing]
 - Extended capabilities such as 1M context and configurable reasoning are documented for VS Code and Copilot CLI only. Use regular context and regular reasoning by default.[^supported-models]
 - Code completions and next edit suggestions are not billed in AI credits on paid plans. Do not treat every Copilot surface as the same cost bucket.[^usage-billing]
@@ -390,51 +401,51 @@ Do not use Govify as a case study in this guide unless a primary source is provi
 
 ## References
 
-[^agent-costs]: Longju Bai et al., "How Do AI Agents Spend Your Money? Analyzing and Predicting Token Consumption in Agentic Coding Tasks," arXiv:2604.22750, https://arxiv.org/abs/2604.22750
+[^agent-costs]: Longju Bai et al., ["How Do AI Agents Spend Your Money? Analyzing and Predicting Token Consumption in Agentic Coding Tasks"](https://arxiv.org/abs/2604.22750), arXiv:2604.22750.
 
-[^tunguz]: Tomasz Tunguz, "Intelligence Per Dollar," https://tomtunguz.com/tokens-per-result
+[^tunguz]: Tomasz Tunguz, ["Intelligence Per Dollar"](https://tomtunguz.com/tokens-per-result).
 
-[^superpowers]: `obra/superpowers`, community agentic-skills framework, https://github.com/obra/superpowers
+[^superpowers]: [`obra/superpowers`](https://github.com/obra/superpowers), community agentic-skills framework.
 
-[^agent-toolkit]: `softaworks/agent-toolkit`, community agent skill toolkit, https://github.com/softaworks/agent-toolkit
+[^agent-toolkit]: [`softaworks/agent-toolkit`](https://github.com/softaworks/agent-toolkit), community agent skill toolkit.
 
-[^catpilot-guardrails]: `catpilotai/catpilot-ai-guardrails`, community security guardrail skills, https://github.com/catpilotai/catpilot-ai-guardrails
+[^catpilot-guardrails]: [`catpilotai/catpilot-ai-guardrails`](https://github.com/catpilotai/catpilot-ai-guardrails), community security guardrail skills.
 
-[^agent-browser]: `vercel-labs/agent-browser` agent browser skill, https://github.com/vercel-labs/agent-browser/blob/main/skills/agent-browser/SKILL.md
+[^agent-browser]: [`vercel-labs/agent-browser` agent browser skill](https://github.com/vercel-labs/agent-browser/blob/main/skills/agent-browser/SKILL.md).
 
-[^writing-guidelines]: `vercel-labs/writing-guidelines`, practitioner writing and review guidance, https://github.com/vercel-labs/writing-guidelines
+[^writing-guidelines]: [`vercel-labs/writing-guidelines`](https://github.com/vercel-labs/writing-guidelines), practitioner writing and review guidance.
 
-[^mattpocock-skills]: `mattpocock/skills`, community engineering skill collection, https://github.com/mattpocock/skills
+[^mattpocock-skills]: [`mattpocock/skills`](https://github.com/mattpocock/skills), community engineering skill collection.
 
-[^qaskills]: `PramodDutta/qaskills`, QA skill catalog and tooling, https://github.com/PramodDutta/qaskills
+[^qaskills]: [`PramodDutta/qaskills`](https://github.com/PramodDutta/qaskills), QA skill catalog and tooling.
 
-[^plan-agent]: VS Code Docs, "Planning with Copilot," https://code.visualstudio.com/docs/agents/planning
+[^plan-agent]: VS Code Docs, ["Planning with Copilot"](https://code.visualstudio.com/docs/agents/planning).
 
-[^cloud-plan]: GitHub Docs, "Use Copilot agents: Research, plan, iterate," https://docs.github.com/en/copilot/how-tos/copilot-on-github/use-copilot-agents/research-plan-iterate
+[^cloud-plan]: GitHub Docs, ["Use Copilot agents: Research, plan, iterate"](https://docs.github.com/en/copilot/how-tos/copilot-on-github/use-copilot-agents/research-plan-iterate).
 
-[^cloud-agent]: GitHub Docs, "About Copilot cloud agent," https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-cloud-agent
+[^cloud-agent]: GitHub Docs, ["About Copilot cloud agent"](https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-cloud-agent).
 
-[^optimize-ai]: GitHub Docs, "Optimize AI Usage," https://docs.github.com/en/copilot/tutorials/optimize-ai-usage
+[^optimize-ai]: GitHub Docs, ["Optimize AI Usage"](https://docs.github.com/en/copilot/tutorials/optimize-ai-usage).
 
-[^supported-models]: GitHub Docs, "Supported AI models in Copilot," https://docs.github.com/en/copilot/reference/ai-models/supported-models and "Model comparison," https://docs.github.com/en/copilot/reference/ai-models/model-comparison
+[^supported-models]: GitHub Docs, ["Supported AI models in Copilot"](https://docs.github.com/en/copilot/reference/ai-models/supported-models) and ["Model comparison"](https://docs.github.com/en/copilot/reference/ai-models/model-comparison).
 
-[^models-pricing]: GitHub Docs, "Models and Pricing," https://docs.github.com/en/copilot/reference/copilot-billing/models-and-pricing
+[^models-pricing]: GitHub Docs, ["Models and Pricing"](https://docs.github.com/en/copilot/reference/copilot-billing/models-and-pricing).
 
-[^auto]: GitHub Docs, "Auto model selection," https://docs.github.com/en/copilot/concepts/models/auto-model-selection
+[^auto]: GitHub Docs, ["Auto model selection"](https://docs.github.com/en/copilot/concepts/models/auto-model-selection).
 
-[^kimi]: GitHub Changelog, "Kimi K2.7 now available for Copilot Business and Enterprise," https://github.blog/changelog/2026-07-07-kimi-k2-7-now-available-for-copilot-business-and-enterprise/
+[^kimi]: GitHub Changelog, ["Kimi K2.7 now available for Copilot Business and Enterprise"](https://github.blog/changelog/2026-07-07-kimi-k2-7-now-available-for-copilot-business-and-enterprise/).
 
-[^mai]: GitHub Changelog, "MAI-Code-1-Flash is now available for GitHub Copilot," https://github.blog/changelog/2026-06-02-mai-code-1-flash-is-now-available-for-github-copilot/
+[^mai]: GitHub Changelog, ["MAI-Code-1-Flash is now available for GitHub Copilot"](https://github.blog/changelog/2026-06-02-mai-code-1-flash-is-now-available-for-github-copilot/).
 
-[^fedramp]: GitHub Docs, "FedRAMP models," https://docs.github.com/en/copilot/concepts/models/fedramp-models
+[^fedramp-eu-dr]: GitHub Docs, ["FedRAMP models"](https://docs.github.com/en/copilot/concepts/models/fedramp-models) and ["GitHub Copilot with data residency"](https://docs.github.com/en/enterprise-cloud@latest/admin/data-residency/github-copilot-with-data-residency).
 
-[^usage-billing]: GitHub Docs, "Usage-based billing for individuals," https://docs.github.com/en/copilot/concepts/billing/usage-based-billing-for-individuals
+[^usage-billing]: GitHub Docs, ["Usage-based billing for individuals"](https://docs.github.com/en/copilot/concepts/billing/usage-based-billing-for-individuals).
 
-[^swebench]: SWE-bench Verified, https://www.swebench.com/verified.html
+[^swebench]: [SWE-bench Verified](https://www.swebench.com/verified.html).
 
-[^deepswe]: DeepSWE, https://github.com/datacurve-ai/deep-swe
+[^deepswe]: [DeepSWE](https://github.com/datacurve-ai/deep-swe).
 
-[^artificial-analysis]: Artificial Analysis methodology, https://artificialanalysis.ai/methodology
+[^artificial-analysis]: [Artificial Analysis methodology](https://artificialanalysis.ai/methodology).
 
 ---
 
