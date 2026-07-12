@@ -77,6 +77,12 @@ Community skill libraries can improve outcome per token when they make the next 
 | [`mattpocock/skills`](https://github.com/mattpocock/skills) | TDD, bug diagnosis, code review, domain modeling | Engineering tasks need sharper loops | Examples skew Claude and TypeScript workflows |
 | [`PramodDutta/qaskills`](https://github.com/PramodDutta/qaskills) | QA and test-generation skills | Need Playwright, API, BDD, security, accessibility, or bug-report depth | Large skill files; early project |
 
+### Skill Library Star History
+
+[![Skill library Star History Chart](https://api.star-history.com/svg?repos=obra/superpowers,softaworks/agent-toolkit,catpilotai/catpilot-ai-guardrails,vercel-labs/agent-browser,vercel-labs/writing-guidelines,mattpocock/skills,PramodDutta/qaskills&type=timeline)](https://www.star-history.com/#obra/superpowers&softaworks/agent-toolkit&catpilotai/catpilot-ai-guardrails&vercel-labs/agent-browser&vercel-labs/writing-guidelines&mattpocock/skills&PramodDutta/qaskills&timeline)
+
+Star history is an adoption signal, not a quality benchmark. Use it to understand community attention, then judge each library by whether it changes the next agent action.
+
 ### `obra/superpowers`: Baseline Agent SDLC Discipline
 
 Use Superpowers as the reference pattern: skills are small, named operating procedures. The value is not the brand name; the value is turning "be careful" into concrete moves the agent can follow.[^superpowers]
