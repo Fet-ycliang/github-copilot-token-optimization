@@ -14,6 +14,8 @@
 
 > **Output tokens cost much more than input tokens.** That's the most important pricing fact in this guide. Anthropic's public pricing makes the asymmetry concrete ($1/$5 Haiku, $3/$15 Sonnet, $5/$25 Opus per MTok input/output). Copilot's exact per-model UBB pricing table is not public yet, but UBB still makes verbose output disproportionately expensive. Most input tokens come from file context, history, and tool schemas — not from what you type. Your typed prompt is a tiny fraction of total input. Start with output control, then tackle structural input wins.
 
+![Token cost anatomy: input tokens include hidden context, output tokens are the visible answer, and stable cached tokens get cheaper.](docs/assets/diagrams/token-cost-anatomy.svg)
+
 Don't have time to read the full guide? Do these today and cut your token usage:
 
 | # | Action | Primary Effect | Time to Set Up |
@@ -38,6 +40,8 @@ Don't have time to read the full guide? Do these today and cut your token usage:
 *Figures above are scoped to the mechanism named in each row, are not additive, and do not equal total bill reduction.*
 
 Output control (#1, #2) pays off immediately and compounds — set it once, save on every call. Structural input control (#3, #6) compounds across every interaction. Model routing (#4, #5) reduces cost at the billing tier. Model-specific prompt tuning (#8) cuts waste by improving first-pass quality. MCP audit (#9) eliminates thousands of hidden tokens per agent task; RTK/snip-style output filters address the separate cost of verbose shell results. Markdown conversion (#10) removes DOCX/PDF/HTML layout noise before the model ever sees it. Graph-based navigation (#14) front-loads codebase orientation once, then reuses it across agent sessions.
+
+![Plan first, execute cheaply: use a strong model for planning, save the plan, then execute in a fresh cheaper lane and verify acceptance criteria.](docs/assets/diagrams/plan-execute-cheaply.svg)
 
 ---
 

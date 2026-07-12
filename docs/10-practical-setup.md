@@ -489,28 +489,7 @@ Each mode has a fundamentally different token cost profile:
 
 Understanding the loop helps you minimize steps:
 
-```text
-Step 1: Load context
-  ├── System prompt (~500 tokens)
-  ├── copilot-instructions.md (~50-1500 tokens)
-  ├── Tool definitions (~2,000-20,000 tokens)
-  ├── Conversation history (growing)
-  └── YOUR prompt
-  → Send to LLM → Get response
-
-Step 2: LLM decides to call a tool
-  ├── Tool call (function + params) → output tokens
-  ├── Tool result → input tokens (next step)
-  └── Reasoning about result → output tokens
-
-Step 3: Another tool call (or generate response)
-  ├── ALL of Step 1's context reloaded
-  ├── + Step 2's tool call and result
-  └── + growing conversation
-  → Send to LLM again
-
-... repeat 5-25 times
-```
+![Agent mode cost loop: load context, choose a tool, ingest the tool result, replay prior context, and repeat until the task is complete.](assets/diagrams/agent-cost-loop.svg)
 
 **Key insight:** Context grows with every step. Step 15 carries all the context from steps 1-14 plus the original prompt. This is why long agent sessions get expensive fast.
 
@@ -597,20 +576,7 @@ These directives reduce unnecessary tool calls. Each skipped tool call saves 100
 
 ### 4.5.6 Decision Framework: When to Use Each Mode
 
-```text
-Question about code/syntax/concept?
-  → Ask Mode (1 call, ~500-2,000 tokens)
-
-Change to a single file?
-  → Edit Mode (1-2 calls, ~1,000-4,000 tokens)
-
-Multi-file change with clear scope?
-  → Agent Mode with precise prompt (~5-10 steps, ~15,000-50,000 tokens)
-
-Vague "fix this" or "improve that"?
-  → DON'T use Agent Mode yet. Clarify scope first in Ask Mode.
-  → Then switch to Agent with precise prompt.
-```
+![Copilot mode decision tree: choose Ask, Edit, Agent, or clarify first based on whether code changes are needed and whether scope is clear.](assets/diagrams/mode-decision-tree.svg)
 
 **A costly pattern:** Using Agent Mode for a vague prompt, watching it explore for 20 steps, then realizing it misunderstood and starting over. That can double token use without improving the result.
 

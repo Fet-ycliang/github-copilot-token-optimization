@@ -61,6 +61,8 @@ This is one of the higher-leverage savings opportunities in the guide.
 
 **Ask Mode** is a single call. One question, one answer.
 
+![Copilot mode decision tree: use Ask for questions, Edit for single-file changes, Agent for clear multi-file work, and clarify vague work before execution.](assets/diagrams/mode-decision-tree.svg)
+
 | Task | Right Mode | Why |
 |------|-----------|-----|
 | "What does this function do?" | Ask | Single-shot answer. No tool use needed |
@@ -291,6 +293,8 @@ The most expensive tokens are the ones spent reaching a *wrong* outcome: an agen
 
 **The two-phase pattern:**
 
+![Plan first, execute cheaply: use a strong model for planning, save the plan, then execute in a fresh cheaper lane and verify acceptance criteria.](assets/diagrams/plan-execute-cheaply.svg)
+
 1. **Plan in plan mode (or Ask mode) first.** Use Copilot CLI's plan mode (or VS Code Ask mode) to think through the approach *before* any code is written — files to touch, order of changes, edge cases, acceptance criteria. Planning is cheap: it's mostly reasoning, no large diffs, no repeated tool loops. This is where a stronger model earns its cost, because a good plan prevents expensive rework downstream.
 2. **Save the plan, then execute it.** Write the agreed plan to a file (e.g. `plan.md`) or a tracked issue, then start a **fresh session** and prompt the execution against that saved plan. A clean session keeps the cacheable prefix stable (see [Caching §2.3.5](04-context-management.md#235-caching-store-and-reuse-context-within-prompts)) and avoids dragging the whole planning conversation forward as input tokens on every execution turn.
 
@@ -307,6 +311,8 @@ For the fuller outcome-per-token frame, skill taxonomy, benchmark caveats, and c
 ## 2.5.10 Layer Tooling on Top of the Copilot Harness
 
 Copilot CLI and VS Code Copilot already optimize parts of the agent loop. Treat that as the baseline before adding external tools:
+
+![MCP and tooling stack: scope MCP schemas, use CodeAct for long tool chains, filter command output with RTK or snip, and use Graphify for repeated orientation.](assets/diagrams/mcp-tooling-stack.svg)
 
 - **Prompt/cache layer:** keep `{model, active MCP set, active agent/profile}` stable so cached prefixes stay reusable.
 - **Tool-schema layer:** prefer built-in tools and scoped MCPs; Copilot can defer or route some tool definitions, but extra servers and extensions still add surface area.

@@ -101,6 +101,8 @@ Every file that enters context costs tokens. Be intentional about what's open an
 
 When the source is a Word file, PDF, PowerPoint, spreadsheet, image, audio file, or exported HTML, do not paste the rich format directly into an AI workflow if you can avoid it. Convert it to clean Markdown first, then send the Markdown.
 
+![Format tax pipeline: rich formats create layout noise, MarkItDown normalizes them to clean Markdown, and rich delivery formats are generated only at the end.](assets/diagrams/format-tax-pipeline.svg)
+
 Marc Bara calls this the **format tax** in [Your .docx Is Wasting 33% of Your AI Budget](https://medium.com/@marc.bara.iniesta/your-docx-is-wasting-33-of-your-ai-budget-86a3d229d042): Word, PDF, and HTML carry font data, XML, page-positioning metadata, layout artifacts, embedded objects, and tag soup that models must process but rarely need. The article cites a concrete example where a 10-page report extracted from PDF used roughly 12,400 tokens, while the same content as clean Markdown used about 8,350 tokens — a 33% reduction with the same information. HTML exports can be even worse because semantic content gets wrapped in long tags, classes, IDs, and layout scaffolding.
 
 The rule: use Markdown as the **working format** for AI interaction, and treat Word/PDF/PowerPoint as delivery formats. Draft, review, summarize, chunk, and retrieve from Markdown. Generate `.docx` or `.pdf` at the end only when a client, regulator, or internal process needs that artifact.
@@ -129,6 +131,8 @@ Security note: MarkItDown reads files, streams, and URLs with the privileges of 
 Most context files are loaded on **every** interaction. That's a tax you pay even when the file isn't relevant — your React component questions don't need your database migration guidelines.
 
 The fix: prefer **conditional context** over always-on context.
+
+![Context loading boundaries: keep the always-on core tiny, move path-specific guidance to scoped instructions, and load skills on demand.](assets/diagrams/context-loading-boundaries.svg)
 
 ### Use `applyTo:` paths in custom instructions
 
@@ -171,6 +175,8 @@ The cheapest token is the one the platform doesn't have to re-process. Modern Co
 In long sessions, this is often the biggest single cost lever. When most of your input is cache-hit input, effective input cost can drop dramatically (commonly cited as up to ~90% discount on cached input, depending on provider/model/surface billing rules).
 
 You can lean into this. Two practical patterns:
+
+![Cache stability: stable threads reuse the same model, MCP set, and agent profile; cache-busted threads switch controls mid-session and should use a fresh handoff instead.](assets/diagrams/cache-stability.svg)
 
 **1. Stable instructions at the top, volatile work at the bottom.** Cached context only works if the prefix of your conversation is stable. Don't reshuffle your `copilot-instructions.md` or rotate which files are open between every prompt — keep the stable layer stable, and let only the most recent message change.
 
@@ -256,6 +262,8 @@ Conversation history accumulates. After 20+ messages, you might have 50K+ tokens
 The per-session codebase-read pattern is a hidden input cost: every new agent session starts from scratch, re-reading the same structural files to understand imports, call paths, and component layout. On large repos, orientation reads can burn thousands of tokens before the agent makes one useful edit.
 
 [Graphify](https://github.com/Graphify-Labs/graphify) attacks that cost differently from prompt compression. It parses the repo once with tree-sitter AST, writes a persistent `graphify-out/graph.json`, and lets agents query that graph instead of repeatedly reading source files for structure.
+
+![Persistent graph navigation: Graphify builds a shared graph once, then agents query paths and explanations instead of rereading broad file sets.](assets/diagrams/graphify-navigation.svg)
 
 ```bash
 uv tool install graphifyy

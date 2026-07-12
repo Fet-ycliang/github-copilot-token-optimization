@@ -38,6 +38,8 @@ The implication is simple: optimize the loop, not the sentence.
 
 High outcome per token comes from six habits:
 
+![Outcome-per-token loop: pick the task shape, plan before code, route the model, target context, verify evidence, and close cleanly.](assets/diagrams/outcome-per-token-loop.svg)
+
 1. pick the right task shape
 2. plan before implementation
 3. route the right model to the right phase
@@ -244,18 +246,7 @@ Stale sessions accumulate decisions, tool output, file reads, and abandoned appr
 
 The strongest pattern is two separate phases:
 
-```text
-Phase 1: Plan
-  model: strong reasoning model
-  mode: Plan / Ask / cloud-agent research
-  output: saved plan with steps and acceptance criteria
-
-Phase 2: Execute
-  model: cheaper or mid-tier model
-  mode: fresh agent session
-  input: saved plan + targeted files only
-  output: verified implementation
-```
+![Plan first, execute cheaply: plan with a strong reasoning model, save acceptance criteria, execute in a fresh cheaper session, then verify or revise the plan.](assets/diagrams/plan-execute-cheaply.svg)
 
 GitHub's [Optimize AI Usage](https://docs.github.com/en/copilot/tutorials/optimize-ai-usage) guidance makes the same point: defaulting to the most capable model can increase token usage without improving the outcome, and overusing reasoning models in execution-heavy tasks can reduce quality by making the model overthink or introduce unnecessary changes.[^optimize-ai] The same page gives the practical rule: plan with a strong reasoning model, then implement with a cheaper model.
 

@@ -8,6 +8,8 @@
 
 Most context waste hides in things you never examine. Before tuning MCP servers or instruction files, check what's actually in your context window.
 
+![MCP and tooling stack: separate fixes reduce schema cost, turn count, shell output, repeated orientation reads, and visibility gaps.](assets/diagrams/mcp-tooling-stack.svg)
+
 **Copilot CLI:** run `/context` mid-session to get a real breakdown:
 
 ```text

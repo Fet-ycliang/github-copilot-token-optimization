@@ -49,23 +49,7 @@ Every token you send or receive has a cost. Here's how:
 
 Understanding what Copilot does behind the scenes helps you optimize:
 
-```text
-┌─────────────────────────────────────────────────┐
-│                 Context Window                  │
-│                                                 │
-│  ┌──────────────────┐  ┌─────────────────────┐  │
-│  │  INPUT TOKENS    │  │  OUTPUT TOKENS      │  │
-│  │                  │  │                     │  │
-│  │  System prompt   │  │  The response       │  │
-│  │  + copilot-      │  │  you receive        │  │
-│  │    instructions  │  │                     │  │
-│  │  + file context  │  │                     │  │
-│  │  + conversation  │  │                     │  │
-│  │    history       │  │                     │  │
-│  │  + YOUR prompt   │  │                     │  │
-│  └──────────────────┘  └─────────────────────┘  │
-└─────────────────────────────────────────────────┘
-```
+![Token cost anatomy: input tokens include hidden context, output tokens are the visible answer, and stable cached tokens get cheaper.](assets/diagrams/token-cost-anatomy.svg)
 
 - **System prompt:** Copilot's own instructions (you can't control this)
 - **`copilot-instructions.md`:** Your project-level instructions — loaded on **every** interaction

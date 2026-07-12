@@ -16,6 +16,8 @@ Three levers matter most:
 
 Prompt compression still matters, but it is a usage-efficiency lever. It is not an admin billing control.
 
+![Enterprise governance control plane: budgets, user-level budgets, and model access feed usage reports, cohorts, and review loops.](assets/diagrams/enterprise-governance-control-plane.svg)
+
 One timing rule matters: June 1, 2026 is the cutoff. After that, Business and Enterprise governance shifts to AI-credit usage under usage-based billing. Treat premium requests as legacy transition context, not as the main planning model.
 
 ## 1. Set Budgets First

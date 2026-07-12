@@ -8,6 +8,8 @@
 
 The single most effective token optimization technique. Drop the linguistic scaffolding that adds tokens without adding information.
 
+![Prompt compression ladder: verbose text compresses through lite, full, and ultra forms while preserving technical terms and constraints.](assets/diagrams/prompt-compression-ladder.svg)
+
 **What to drop:**
 
 - Articles: a, an, the
