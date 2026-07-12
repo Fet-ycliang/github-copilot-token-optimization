@@ -172,6 +172,27 @@
       .left {
         text-align: left;
       }
+
+      .diagram {
+        display: block;
+        max-width: 96%;
+        max-height: 560px;
+        margin: 0.35em auto 0;
+        border-radius: 18px;
+        background: #f8fafc;
+      }
+
+      .diagram-compact {
+        max-height: 470px;
+      }
+
+      .star-history {
+        max-width: 96%;
+        max-height: 420px;
+        background: #ffffff;
+        border-radius: 14px;
+        padding: 0.35em;
+      }
     </style>
   </head>
   <body>
@@ -226,8 +247,9 @@
               <tr><td>03:15-04:15</td><td>Workflow + modes</td><td>Mode routing cheat sheet</td></tr>
               <tr><td>04:15-05:15</td><td>MCP/tool costs + data</td><td>MCP audit list</td></tr>
               <tr><td>05:15-06:15</td><td>Practical setup</td><td>Repo setup checklist</td></tr>
-              <tr><td>06:15-07:30</td><td>Model/pricing + governance</td><td>Customer admin rollout</td></tr>
-              <tr><td>07:30-08:00</td><td>Capstone</td><td>30 day token plan</td></tr>
+              <tr><td>06:15-07:10</td><td>Model/pricing + governance</td><td>Customer admin rollout</td></tr>
+              <tr><td>07:10-07:40</td><td>Outcome per token</td><td>Plan/execute/verify loop</td></tr>
+              <tr><td>07:40-08:00</td><td>Capstone</td><td>30 day token plan</td></tr>
             </tbody>
           </table>
         </section>
@@ -241,7 +263,7 @@
         <section>
           <section>
             <p class="kicker">Quick Start</p>
-            <h2>11 things to do right now</h2>
+            <h2>14 things to do right now</h2>
             <p>Start with output, then shrink structural input, then route models and tools.</p>
           </section>
 
@@ -263,29 +285,42 @@
               <li><strong>Write precise prompts</strong>: target file, function, done condition.</li>
               <li><strong>Retune prompts to target model</strong>.</li>
               <li><strong>Audit MCP servers</strong>.</li>
+              <li><strong>Convert rich files to Markdown first</strong>.</li>
+            </ol>
+          </section>
+
+          <section>
+            <h2>More fast wins, continued</h2>
+            <ol start="11">
               <li><strong>Run <code>/chronicle cost tips</code> &amp; <code>/chronicle improve</code></strong> in Copilot CLI.</li>
+              <li><strong>Use AI Engineering Coach</strong> for VS Code habit review.</li>
               <li><strong>Try CodeAct</strong> for long CLI tool chains.</li>
+              <li><strong>Build a Graphify map</strong> for repeated codebase navigation.</li>
             </ol>
           </section>
 
           <section>
             <h2>The priority stack</h2>
-            <div class="grid">
+            <div class="grid-3">
               <div class="card">
                 <h3>Output first</h3>
-                <p>Verbose answers are expensive. One default instruction changes every response.</p>
+                <p>One default changes every response.</p>
               </div>
               <div class="card">
                 <h3>Always-on second</h3>
-                <p>Instruction files and tool schemas load repeatedly. Small baselines compound.</p>
+                <p>Small baselines compound.</p>
               </div>
               <div class="card">
                 <h3>Mode third</h3>
-                <p>Ask for questions. Edit for single-file changes. Agent for multi-step work.</p>
+                <p>Ask, Edit, Agent by task shape.</p>
               </div>
               <div class="card">
                 <h3>Governance fourth</h3>
-                <p>Budgets cap spend. Model policy limits expensive lanes.</p>
+                <p>Budgets and model policy cap spend.</p>
+              </div>
+              <div class="card">
+                <h3>Outcome fifth</h3>
+                <p>Plan, route, verify, close.</p>
               </div>
             </div>
           </section>
@@ -329,14 +364,7 @@
 
           <section>
             <h2>Cost model</h2>
-            <table>
-              <thead><tr><th>Bucket</th><th>What it contains</th><th>Lever</th></tr></thead>
-              <tbody>
-                <tr><td>Input</td><td>Prompt, context, files, history, tools</td><td>Scope and compress</td></tr>
-                <tr><td>Cached</td><td>Stable reused prefixes</td><td>Keep stable context stable</td></tr>
-                <tr><td>Output</td><td>Model response</td><td>Code-only, concise format</td></tr>
-              </tbody>
-            </table>
+            <img class="diagram diagram-compact" src="../docs/assets/diagrams/token-cost-anatomy.svg" alt="Token cost anatomy: input tokens include hidden context, output tokens are the visible answer, cached tokens reuse stable prefix.">
             <p class="small warning">Output tokens usually cost materially more than input tokens in vendor pricing examples.</p>
           </section>
 
@@ -384,6 +412,7 @@
             <p class="kicker">Part 2.1</p>
             <h2>Prompt compression</h2>
             <p>Say same thing in fewer tokens. Preserve technical precision.</p>
+            <img class="diagram diagram-compact" src="../docs/assets/diagrams/prompt-compression-ladder.svg" alt="Prompt compression ladder from verbose to lite to full to ultra while preserving technical substance.">
           </section>
 
           <section>
@@ -593,24 +622,22 @@ API conventions:
 
           <section>
             <h2>Always-on vs conditional vs on-demand</h2>
-            <table>
-              <thead><tr><th>Scope</th><th>Use for</th><th>Token posture</th></tr></thead>
-              <tbody>
-                <tr><td>Always-on</td><td>Universal rules</td><td>Keep tiny</td></tr>
-                <tr><td>Conditional</td><td>Path/layer rules</td><td><code>applyTo</code></td></tr>
-                <tr><td>On-demand</td><td>Review checklists, release notes</td><td>Load only when invoked</td></tr>
-              </tbody>
-            </table>
+            <img class="diagram diagram-compact" src="../docs/assets/diagrams/context-loading-boundaries.svg" alt="Always-on context should be tiny; scoped instructions load by path; on-demand skills load when invoked.">
+          </section>
+
+          <section>
+            <h2>Normalize rich files first</h2>
+            <img class="diagram diagram-compact" src="../docs/assets/diagrams/format-tax-pipeline.svg" alt="Rich files carry format noise; MarkItDown converts them to clean Markdown before AI work.">
           </section>
 
           <section>
             <h2>Cache-friendly behavior</h2>
-            <ul>
-              <li>Keep stable context at the top.</li>
-              <li>Do not churn instruction files constantly.</li>
-              <li>Reuse saved snippets instead of re-pasting large context.</li>
-              <li>Summarize and restart when history gets stale.</li>
-            </ul>
+            <img class="diagram diagram-compact" src="../docs/assets/diagrams/cache-stability.svg" alt="Stable thread reuses prefix; cache-busted thread switches model, tools, or agent and should start fresh with a handoff.">
+          </section>
+
+          <section>
+            <h2>Persistent graph navigation</h2>
+            <img class="diagram diagram-compact" src="../docs/assets/diagrams/graphify-navigation.svg" alt="Graphify builds graph.json once so agents can query the map instead of rereading broad file sets.">
           </section>
 
           <section>
@@ -718,16 +745,7 @@ Code only. No explanation. Minimal diff.</code></pre>
 
           <section>
             <h2>Ask vs Edit vs Agent</h2>
-            <table>
-              <thead><tr><th>Task</th><th>Mode</th><th>Reason</th></tr></thead>
-              <tbody>
-                <tr><td>What does function do?</td><td>Ask</td><td>One call</td></tr>
-                <tr><td>Syntax question</td><td>Ask</td><td>No tools</td></tr>
-                <tr><td>Single-file tweak</td><td>Edit</td><td>Targeted</td></tr>
-                <tr><td>Multi-file refactor</td><td>Agent</td><td>Needs tools</td></tr>
-                <tr><td>Issue-to-PR</td><td>Coding Agent</td><td>Autonomous workflow</td></tr>
-              </tbody>
-            </table>
+            <img class="diagram diagram-compact" src="../docs/assets/diagrams/mode-decision-tree.svg" alt="Decision tree: use Ask for questions, Edit for targeted single-file changes, Agent for clear multi-file work, and clarify vague tasks first.">
           </section>
 
           <section>
@@ -768,6 +786,11 @@ Show diff only.</code></pre>
                 <p>VS Code local extension. Finds anti-patterns, context health, skill opportunities.</p>
               </div>
             </div>
+          </section>
+
+          <section>
+            <h2>Plan first, execute cheaply</h2>
+            <img class="diagram diagram-compact" src="../docs/assets/diagrams/plan-execute-cheaply.svg" alt="Plan with strong model, save plan, execute in fresh cheaper session, then verify acceptance criteria.">
           </section>
 
           <section>
@@ -860,6 +883,7 @@ Root cause fixed -> delete that line.</code></pre>
             <p class="kicker">Part 2.7</p>
             <h2>MCP and tool costs</h2>
             <p>Tool schemas are hidden token tax.</p>
+            <img class="diagram diagram-compact" src="../docs/assets/diagrams/mcp-tooling-stack.svg" alt="Tooling stack: scope MCP schemas, use CodeAct for turn loops, RTK or snip for output, Graphify for orientation.">
           </section>
 
           <section>
@@ -908,11 +932,33 @@ x 200 tokens/tool
 
           <section>
             <h2>Tool output compression</h2>
-            <div class="card">
-              <h3>RTK</h3>
-              <p>CLI proxy filters noisy shell output before agent reads it: tests, git diff, grep, logs, file listings.</p>
-              <pre><code class="language-bash">rtk init --copilot</code></pre>
+            <div class="grid">
+              <div class="card">
+                <h3>RTK</h3>
+                <p>Rust CLI proxy filters noisy shell output: tests, git diff, grep, logs, file listings.</p>
+                <pre><code class="language-bash">rtk init --copilot</code></pre>
+              </div>
+              <div class="card">
+                <h3>snip</h3>
+                <p>YAML-extensible command filters with local savings stats and team-maintained rules.</p>
+                <pre><code class="language-bash">snip init --agent copilot</code></pre>
+              </div>
             </div>
+            <p class="small warning">Pick one output filter layer per command path. Do not stack RTK and snip by default.</p>
+          </section>
+
+          <section>
+            <h2>One tool per layer</h2>
+            <table>
+              <thead><tr><th>Layer</th><th>Tool</th><th>Reduces</th></tr></thead>
+              <tbody>
+                <tr><td>Workflow turns</td><td>CodeAct</td><td>Repeated model-tool loops</td></tr>
+                <tr><td>Command output</td><td>RTK or snip</td><td>Verbose shell results</td></tr>
+                <tr><td>Command choice</td><td>minimal-context-tools</td><td>Broad search/read behavior</td></tr>
+                <tr><td>Codebase orientation</td><td>Graphify</td><td>Repeated file rereads</td></tr>
+                <tr><td>Visibility</td><td>Chronicle / Coach</td><td>Waste you would miss</td></tr>
+              </tbody>
+            </table>
           </section>
 
           <section>
@@ -1064,6 +1110,22 @@ Done: targeted test passes.</code></pre>
           </section>
 
           <section>
+            <h2>Agent mode cost loop</h2>
+            <img class="diagram diagram-compact" src="../docs/assets/diagrams/agent-cost-loop.svg" alt="Agent loop: load context, decide tool, ingest result, replay context, repeat.">
+          </section>
+
+          <section>
+            <h2>Session harness checklist</h2>
+            <pre><code class="language-text">model
+mode
+agent/profile
+active MCP/tools
+output filter
+repo instructions</code></pre>
+            <p class="small">Choose before the session starts. Stable harness = predictable cost and cache behavior.</p>
+          </section>
+
+          <section>
             <h2>Lab 13: repo implementation</h2>
             <div class="card lab">
               <h3>Goal</h3>
@@ -1150,11 +1212,7 @@ Done: targeted test passes.</code></pre>
 
           <section>
             <h2>Spend levers</h2>
-            <ol>
-              <li>Budget ceilings.</li>
-              <li>User-level AI-credit budgets.</li>
-              <li>Model availability policy.</li>
-            </ol>
+            <img class="diagram diagram-compact" src="../docs/assets/diagrams/enterprise-governance-control-plane.svg" alt="Enterprise governance control plane connects budgets, user-level caps, model access, usage reports, cohorts, and policy review.">
             <p class="small">Prompt compression does not cap spend. It reduces waste inside allowed usage.</p>
           </section>
 
@@ -1250,6 +1308,98 @@ Done: targeted test passes.</code></pre>
 
         <section>
           <section>
+            <p class="kicker">Part 4.4</p>
+            <h2>Outcome per token</h2>
+            <p>Optimize for accepted work, not the shortest prompt.</p>
+          </section>
+
+          <section>
+            <h2>The metric</h2>
+            <div class="quote">
+              outcome per token = verified work completed / total tokens spent
+            </div>
+            <p class="small">A short prompt that causes wrong-direction work is more expensive than a longer plan that lands correctly.</p>
+          </section>
+
+          <section>
+            <h2>Agentic cost research signal</h2>
+            <table>
+              <thead><tr><th>Finding</th><th>Implication</th></tr></thead>
+              <tbody>
+                <tr><td>Agentic coding can consume far more than chat</td><td>Do not extrapolate simple-chat cost</td></tr>
+                <tr><td>Same task can vary widely across runs</td><td>Use budgets and stop rules</td></tr>
+                <tr><td>More tokens do not guarantee accuracy</td><td>Optimize loop quality</td></tr>
+                <tr><td>Input dominates agentic cost</td><td>Context hygiene matters</td></tr>
+              </tbody>
+            </table>
+          </section>
+
+          <section>
+            <h2>Outcome loop</h2>
+            <img class="diagram diagram-compact" src="../docs/assets/diagrams/outcome-per-token-loop.svg" alt="Outcome-per-token loop: pick task shape, plan, route model, target context, verify evidence, close cleanly.">
+          </section>
+
+          <section>
+            <h2>Skills as practices</h2>
+            <table>
+              <thead><tr><th>Skill</th><th>Token effect</th></tr></thead>
+              <tbody>
+                <tr><td>Brainstorming</td><td>Prevents early lock-in</td></tr>
+                <tr><td>Planning</td><td>Reduces guessing during execution</td></tr>
+                <tr><td>Greenness</td><td>Avoids debugging unknown baseline failures</td></tr>
+                <tr><td>Verification</td><td>Prevents false completion</td></tr>
+                <tr><td>Impeccable close</td><td>Prevents review churn</td></tr>
+                <tr><td>Branch-close discipline</td><td>Stops stale context carryover</td></tr>
+              </tbody>
+            </table>
+          </section>
+
+          <section>
+            <h2>Skill libraries: borrow patterns</h2>
+            <div class="grid">
+              <div class="card"><h3>SDLC</h3><p>Superpowers, planning, TDD, branch finish.</p></div>
+              <div class="card"><h3>Handoff</h3><p>agent-toolkit patterns for requirements, plans, entropy control.</p></div>
+              <div class="card"><h3>Guardrails</h3><p>Secrets, cloud, DB, Docker, dependency, and retry-stop cautions.</p></div>
+              <div class="card"><h3>QA / writing</h3><p>Browser evidence, writing review, QA depth on demand.</p></div>
+            </div>
+            <p class="small warning">Do not install every skill. Load only what changes the next action.</p>
+          </section>
+
+          <section>
+            <h2>Skill library adoption signal</h2>
+            <img class="star-history" src="https://api.star-history.com/svg?repos=obra/superpowers,softaworks/agent-toolkit,catpilotai/catpilot-ai-guardrails,vercel-labs/agent-browser,vercel-labs/writing-guidelines,mattpocock/skills,PramodDutta/qaskills&amp;type=timeline" alt="Star history for selected community skill libraries.">
+            <p class="small">Stars show attention, not quality. Judge by whether the skill changes the next agent action.</p>
+          </section>
+
+          <section>
+            <h2>Plan first, execute cheaply</h2>
+            <img class="diagram diagram-compact" src="../docs/assets/diagrams/plan-execute-cheaply.svg" alt="Plan with strong reasoning model, save acceptance criteria, execute in a fresh cheaper session, verify implementation.">
+          </section>
+
+          <section>
+            <h2>Day-to-day model guidance</h2>
+            <ol>
+              <li><strong>Auto first</strong> for unknown everyday work.</li>
+              <li><strong>Lightweight</strong> for tiny bounded work.</li>
+              <li><strong>Mid-tier</strong> for normal implementation after clear plan.</li>
+              <li><strong>Powerful</strong> for planning, architecture, hard debugging.</li>
+              <li><strong>Fresh session</strong> when changing model/tool/agent lane.</li>
+            </ol>
+          </section>
+
+          <section>
+            <h2>Benchmark caveats</h2>
+            <ul>
+              <li>Benchmarks choose candidates; repo tasks choose defaults.</li>
+              <li>Harness, tools, retrieval, and reasoning effort affect scores.</li>
+              <li>Compare outcome and cost together, not score alone.</li>
+              <li>Label sources: verified, directional, anecdotal.</li>
+            </ul>
+          </section>
+        </section>
+
+        <section>
+          <section>
             <p class="kicker">Capstone</p>
             <h2>30 day token optimization plan</h2>
             <p>Turn workshop into customer rollout.</p>
@@ -1261,9 +1411,9 @@ Done: targeted test passes.</code></pre>
               <thead><tr><th>Week</th><th>Team action</th><th>Admin action</th></tr></thead>
               <tbody>
                 <tr><td>1</td><td>Output defaults + Ask Mode</td><td>Usage baseline</td></tr>
-                <tr><td>2</td><td>Instruction pruning + scoped rules</td><td>Budget pilot</td></tr>
-                <tr><td>3</td><td>MCP audit + model routing</td><td>Model access review</td></tr>
-                <tr><td>4</td><td>Agent issue templates + setup steps</td><td>Monthly reporting cadence</td></tr>
+                <tr><td>2</td><td>Instruction pruning + scoped rules + Markdown conversion</td><td>Budget pilot</td></tr>
+                <tr><td>3</td><td>MCP audit + output filter + Graphify pilot</td><td>Model access review</td></tr>
+                <tr><td>4</td><td>Plan-first execution + verification/close discipline</td><td>Monthly outcome-per-token review</td></tr>
               </tbody>
             </table>
           </section>
@@ -1288,7 +1438,7 @@ Done: targeted test passes.</code></pre>
                   <li>Code-only default</li>
                   <li>Ask/Edit/Agent routing</li>
                   <li>Concise prompts</li>
-                  <li>Fresh sessions</li>
+                  <li>Plan first, fresh sessions</li>
                 </ul>
               </div>
               <div class="card checkpoint">
@@ -1298,6 +1448,7 @@ Done: targeted test passes.</code></pre>
                   <li>Scoped <code>applyTo</code> files</li>
                   <li>Coding Agent setup steps</li>
                   <li>Precise issue templates</li>
+                  <li>Graphify map where useful</li>
                 </ul>
               </div>
               <div class="card checkpoint">
@@ -1306,7 +1457,8 @@ Done: targeted test passes.</code></pre>
                   <li>MCP profiles</li>
                   <li>Content Exclusion</li>
                   <li>Model access policy</li>
-                  <li>RTK/CLI tool output strategy</li>
+                  <li>RTK or snip output strategy</li>
+                  <li>One tool per layer</li>
                 </ul>
               </div>
               <div class="card checkpoint">
@@ -1315,7 +1467,7 @@ Done: targeted test passes.</code></pre>
                   <li>Budgets</li>
                   <li>User-level caps</li>
                   <li>Usage reporting</li>
-                  <li>Monthly review</li>
+                  <li>Monthly outcome review</li>
                 </ul>
               </div>
             </div>
@@ -1337,6 +1489,68 @@ Done: targeted test passes.</code></pre>
     <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/highlight/highlight.js" integrity="sha384-RStjjmink02UsZt/lqz6BNqXt/+nevOv97+PJ6CB6e7Sn5mzmf+qPdFtF59M9d4V" crossorigin="anonymous"></script>
     <script>
       const presenterNotes = {
+        "Outcome per token": `
+          <p><strong>Timing:</strong> 2 min.</p>
+          <p>Frame this as the upgraded goal: not fewer words at any cost, but more verified work per token.</p>
+          <p>Use this to connect developer habits with enterprise spend outcomes.</p>
+        `,
+        "The metric": `
+          <p><strong>Timing:</strong> 3 min.</p>
+          <p>Emphasize that a slightly longer plan can be cheaper than a short vague prompt if it prevents rework.</p>
+        `,
+        "Agentic cost research signal": `
+          <p><strong>Timing:</strong> 4 min.</p>
+          <p>Keep claims bounded. The lesson is variability and loop control, not a universal fixed multiplier for every task.</p>
+        `,
+        "Outcome loop": `
+          <p><strong>Timing:</strong> 4 min.</p>
+          <p>Walk clockwise: task shape, plan, route, target context, verify, close. This becomes the capstone mental model.</p>
+        `,
+        "Skills as practices": `
+          <p><strong>Timing:</strong> 4 min.</p>
+          <p>Explain skills as reusable operating procedures. They save tokens when they change the next action or prevent a bad action.</p>
+        `,
+        "Skill libraries: borrow patterns": `
+          <p><strong>Timing:</strong> 4 min.</p>
+          <p>These are community examples, not official recommendations. Borrow the practice; do not install everything by default.</p>
+        `,
+        "Skill library adoption signal": `
+          <p><strong>Timing:</strong> 2 min.</p>
+          <p>Stars indicate attention, not quality or safety. Treat as discovery input only.</p>
+        `,
+        "Plan first, execute cheaply": `
+          <p><strong>Timing:</strong> 5 min.</p>
+          <p>Planning is where premium reasoning earns its keep. Once steps and acceptance criteria are written, execution can often use a cheaper lane.</p>
+          <p>Stress fresh sessions when changing model/tool/agent lane.</p>
+        `,
+        "Day-to-day model guidance": `
+          <p><strong>Timing:</strong> 4 min.</p>
+          <p>Use this as a practical routing rule, not permanent pricing truth. Re-check official model docs for customer-facing guidance.</p>
+        `,
+        "Benchmark caveats": `
+          <p><strong>Timing:</strong> 3 min.</p>
+          <p>Benchmarks help pick candidates. Real repo tasks and organization policy decide defaults.</p>
+        `,
+        "Normalize rich files first": `
+          <p><strong>Timing:</strong> 4 min.</p>
+          <p>Explain format tax: models should read semantic content, not font/layout/XML noise. Convert to Markdown before AI work.</p>
+        `,
+        "Persistent graph navigation": `
+          <p><strong>Timing:</strong> 4 min.</p>
+          <p>Graphify is useful when agents repeatedly re-read the same repo structure. Skip for tiny repos.</p>
+        `,
+        "One tool per layer": `
+          <p><strong>Timing:</strong> 4 min.</p>
+          <p>Separate turn count, output size, command choice, orientation, and visibility. Stacking tools in the same layer can hide useful evidence.</p>
+        `,
+        "Agent mode cost loop": `
+          <p><strong>Timing:</strong> 4 min.</p>
+          <p>Every avoided agent step saves a full context replay. Use precise prompts and plans to reduce the loop.</p>
+        `,
+        "Session harness checklist": `
+          <p><strong>Timing:</strong> 3 min.</p>
+          <p>Have participants choose this before long work starts. Mid-session churn breaks cache and muddies measurement.</p>
+        `,
         "Workshop outcome": `
           <p><strong>Timing:</strong> 2 min.</p>
           <p>Set expectation: this is practical operating guidance, not theory. Participants should leave with repo changes, personal habits, and admin rollout decisions.</p>
@@ -1356,10 +1570,10 @@ Done: targeted test passes.</code></pre>
           <p><strong>Timing:</strong> 1 min.</p>
           <p>Demo controls only if presenting live from browser. Use speaker view for notes; use overview if audience asks to jump sections.</p>
         `,
-        "11 things to do right now": `
+        "14 things to do right now": `
           <p><strong>Timing:</strong> 2 min.</p>
           <p>Frame as executive summary. If customer only implements one page, implement this one.</p>
-          <p>Emphasize order: output, always-on context, mode/model/tool routing.</p>
+          <p>Emphasize order: output, always-on context, mode/model/tool routing, then outcome discipline.</p>
         `,
         "Fastest wins": `
           <p><strong>Timing:</strong> 3 min.</p>
@@ -1368,7 +1582,11 @@ Done: targeted test passes.</code></pre>
         `,
         "More fast wins": `
           <p><strong>Timing:</strong> 3 min.</p>
-          <p>Separate daily-user habits from platform controls. Chronicle and CodeAct are Copilot CLI-specific; do not oversell as universal Copilot Chat features.</p>
+          <p>Separate daily-user habits from platform controls. Markdown conversion and MCP audits are broadly useful; Chronicle and CodeAct are Copilot CLI-specific.</p>
+        `,
+        "More fast wins, continued": `
+          <p><strong>Timing:</strong> 3 min.</p>
+          <p>Keep caveats crisp: Chronicle is Copilot CLI, AI Engineering Coach is VS Code, CodeAct is optional external CLI tooling, Graphify helps when orientation reads repeat.</p>
         `,
         "The priority stack": `
           <p><strong>Timing:</strong> 4 min.</p>
@@ -1611,7 +1829,8 @@ Done: targeted test passes.</code></pre>
         `,
         "Tool output compression": `
           <p><strong>Timing:</strong> 4 min.</p>
-          <p>Schema audit reduces what is loaded. RTK reduces what commands return. Different levers; both useful.</p>
+          <p>Schema audit reduces what is loaded. RTK or snip reduces what commands return. Different levers; both useful.</p>
+          <p>Do not stack RTK and snip by default; choose one filter layer and validate failed-test/debug detail remains usable.</p>
           <p>Mention external tool status if customer requires security review.</p>
         `,
         "Azure MCP case pattern": `
