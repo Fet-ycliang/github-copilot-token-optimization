@@ -45,7 +45,7 @@ Code/commits/PRs: normal. Off: "stop caveman" / "normal mode".
 
 ## 2.3.2 Memory File Compression
 
-Beyond `copilot-instructions.md` / `AGENTS.md` (which are the same file under two names, see note above), many projects accumulate other memory files that become context: `CLAUDE.md`, project notes, coding guidelines, `.cursorrules`. These are all loaded as context, and all burn tokens on every call. Consolidate duplicates before you start compressing.
+Beyond `copilot-instructions.md` / `AGENTS.md` (distinct conventions that can both be loaded; see note above), many projects accumulate other memory files that become context: `CLAUDE.md`, project notes, coding guidelines, `.cursorrules`. These are all loaded as context, and all burn tokens on every call. Consolidate duplicates before you start compressing.
 
 **Before (~40 tokens):**
 

@@ -347,9 +347,44 @@ Commands with verbose output (test failures, large diffs) see the biggest reduct
 
 Combine with `copilot-setup-steps.yml` (§4.3.2) and precise issue descriptions (§4.3.3) for maximum session efficiency. Full setup, command list, and other AI tool support: [MCP & Tool Costs §2.7.7](08-mcp-tool-costs.md#277-compress-tool-output-at-the-source-rtk).
 
-### 4.3.7 Build a Persistent Knowledge Graph with Graphify
+### 4.3.7 Compress Shell Command Output with snip
 
-RTK compresses what shell commands return. [Graphify](https://github.com/Graphify-Labs/graphify) addresses a different cost: tokens spent reading project files to understand structure before the agent can act.
+[`snip`](https://github.com/edouard-claude/snip) is the closest practical alternative to RTK for Copilot-oriented shell-output compression. It runs commands normally, filters the output through declarative YAML pipelines, and can track local savings with `snip gain`.
+
+Install:
+
+```bash
+brew install edouard-claude/tap/snip
+# or:
+go install github.com/edouard-claude/snip/cmd/snip@latest
+```
+
+Set up Copilot CLI:
+
+```bash
+snip init --agent copilot
+```
+
+Use snip when you want project-specific or team-maintained filters without recompiling a tool. A filter can match a command/subcommand and apply actions like `head`, `tail`, `keep_lines`, `remove_lines`, `json_extract`, `regex_extract`, `group_by`, `dedup`, or `aggregate`.
+
+Example filter shape:
+
+```yaml
+name: "my-test-summary"
+match:
+  command: "my-test-runner"
+pipeline:
+  - action: "keep_lines"
+    pattern: "FAIL|ERROR|expected|actual"
+  - action: "head"
+    n: 80
+```
+
+**Team rollout:** start with one repo and one shell surface. Validate that failed tests, diffs, and build errors still preserve enough detail for the agent to fix the problem. Do not enable RTK and snip on the same command path by default; choose one filter layer and measure.
+
+### 4.3.8 Build a Persistent Knowledge Graph with Graphify
+
+RTK and snip compress what shell commands return. [Graphify](https://github.com/Graphify-Labs/graphify) addresses a different cost: tokens spent reading project files to understand structure before the agent can act.
 
 Install once:
 
@@ -384,41 +419,6 @@ The graph lives in `graphify-out/graph.json`. The human-readable map is `graphif
 - fresh execution sessions ([Outcome per Token](13-outcome-per-token.md)) so the graph supplements a short plan instead of a long transcript
 
 Note: code parsing is local for the AST pass. Optional semantic/deep extraction over docs, PDFs, images, or media may use a configured AI backend. Review that boundary before enabling extras on proprietary codebases.
-
-### 4.3.8 Compress Shell Command Output with snip
-
-[`snip`](https://github.com/edouard-claude/snip) is the closest practical alternative to RTK for Copilot-oriented shell-output compression. It runs commands normally, filters the output through declarative YAML pipelines, and can track local savings with `snip gain`.
-
-Install:
-
-```bash
-brew install edouard-claude/tap/snip
-# or:
-go install github.com/edouard-claude/snip/cmd/snip@latest
-```
-
-Set up Copilot CLI:
-
-```bash
-snip init --agent copilot
-```
-
-Use snip when you want project-specific or team-maintained filters without recompiling a tool. A filter can match a command/subcommand and apply actions like `head`, `tail`, `keep_lines`, `remove_lines`, `json_extract`, `regex_extract`, `group_by`, `dedup`, or `aggregate`.
-
-Example filter shape:
-
-```yaml
-name: "my-test-summary"
-match:
-  command: "my-test-runner"
-pipeline:
-  - action: "keep_lines"
-    pattern: "FAIL|ERROR|expected|actual"
-  - action: "head"
-    n: 80
-```
-
-**Team rollout:** start with one repo and one shell surface. Validate that failed tests, diffs, and build errors still preserve enough detail for the agent to fix the problem. Do not enable RTK and snip on the same command path by default; choose one filter layer and measure.
 
 ### 4.3.9 Use a Session Harness Checklist
 
@@ -594,4 +594,4 @@ That chapter owns:
 
 ---
 
-**Next:** [Enterprise Governance →](12-enterprise-governance.md)
+**Next:** [Model Selection & Pricing →](11-models-and-pricing.md)

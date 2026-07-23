@@ -8,7 +8,12 @@
 
 ---
 
-## Quick Start — 14 Things to Do Right Now
+## Presentations
+
+- [Concise practitioner briefing (18 slides)](slides/briefing.html)
+- [Full customer workshop (8 hours)](slides/index.html)
+
+## Quick Start — 15 Things to Do Right Now
 
 > **June 1, 2026 — Usage-Based Billing (UBB) is live.** GitHub Copilot now bills real tokens (input + output + cached) drawn from pooled AI credits ($30/seat Business, $70/seat Enterprise) instead of request counters. Every technique in this guide translates directly into credit savings — and cache-friendly habits matter more than ever. See [Enterprise Governance](docs/12-enterprise-governance.md) for customer guardrails and [Model Selection & Pricing](docs/11-models-and-pricing.md) for model-cost guidance.
 
@@ -40,7 +45,7 @@ Don't have time to read the full guide? Do these today and cut your token usage:
 
 *Figures above are scoped to the mechanism named in each row, are not additive, and do not equal total bill reduction.*
 
-Output control (#1, #2) pays off immediately and compounds — set it once, save on every call. Structural input control (#3, #6) compounds across every interaction. Model routing (#4, #5) reduces cost at the billing tier. Model-specific prompt tuning (#8) cuts waste by improving first-pass quality. MCP audit (#9) eliminates thousands of hidden tokens per agent task; RTK/snip-style output filters address the separate cost of verbose shell results. Markdown conversion (#10) removes DOCX/PDF/HTML layout noise before the model ever sees it. Graph-based navigation (#14) front-loads codebase orientation once, then reuses it across agent sessions.
+Output control (#1, #2) pays off immediately and compounds — set it once, save on every call. Structural input control (#3, #6) compounds across every interaction. Model routing (#4, #5) reduces cost at the billing tier. Model-specific prompt tuning (#8) cuts waste by improving first-pass quality. MCP audit (#9) eliminates thousands of hidden tokens per agent task; RTK/snip-style output filters address the separate cost of verbose shell results. Markdown conversion (#10) removes DOCX/PDF/HTML layout noise before the model ever sees it. Graph-based navigation (#15) front-loads codebase orientation once, then reuses it across agent sessions.
 
 ![Plan first, execute cheaply: use a strong model for planning, save the plan, then execute in a fresh cheaper lane and verify acceptance criteria.](docs/assets/diagrams/plan-execute-cheaply.svg)
 
@@ -104,27 +109,27 @@ Step-by-step: configure Copilot, optimize the Coding Agent, configure agent mode
 
 ---
 
-### Part 4.2: Model Selection & Pricing
+### Companion: Model Selection & Pricing
 
 Dedicated page on models, PRU-era multiplier history, current Auto guidance, plan availability, and where vendor input/output token pricing fits while Copilot's exact per-model UBB table remains unpublished. Includes links to the official GitHub Docs pages for Auto model selection, billing, and plan/model availability.
 
-→ **[Read Part 4.2](docs/11-models-and-pricing.md)**
+→ **[Read the companion](docs/11-models-and-pricing.md)**
 
 ---
 
-### Part 4.3: Enterprise Governance
+### Companion: Enterprise Governance
 
 Dedicated chapter for customer-facing admin guidance: usage-based billing guardrails, AI-credit budgets, spend cohorts, FinOps-as-code automation, model-access policy, org-level instructions, and separate-organization tradeoffs.
 
-→ **[Read Part 4.3](docs/12-enterprise-governance.md)**
+→ **[Read the companion](docs/12-enterprise-governance.md)**
 
 ---
 
-### Part 4.4: Outcome per Token
+### Companion: Outcome per Token
 
 Dedicated chapter for the shift from token minimization to value per token: plan-first execution, prompt-skill progression, model routing, benchmark caveats, and day-to-day model choices under usage-based billing.
 
-→ **[Read Part 4.4](docs/13-outcome-per-token.md)**
+→ **[Read the companion](docs/13-outcome-per-token.md)**
 
 ---
 

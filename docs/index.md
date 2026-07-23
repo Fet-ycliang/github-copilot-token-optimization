@@ -4,6 +4,8 @@ Practical guide to reducing GitHub Copilot token spend while keeping answers and
 
 [Start with Part 1](01-why-tokens-matter.md){ .md-button .md-button--primary }
 [Jump to Practical Setup](10-practical-setup.md){ .md-button }
+[Concise practitioner briefing](../slides/briefing.html){ .md-button }
+[Full 8-hour workshop](../slides/index.html){ .md-button }
 
 ## What This Covers
 
@@ -33,21 +35,27 @@ Practical guide to reducing GitHub Copilot token spend while keeping answers and
 ### Foundations
 
 - [Why Tokens Matter](01-why-tokens-matter.md)
-- [Comparisons & Data](09-comparisons-data.md)
 
 ### Techniques
 
+- [Prompt Compression](02-prompt-compression.md)
+- [Language Comparison](03-language-comparison.md)
 - [Context Management](04-context-management.md)
 - [Output Control](05-output-control.md)
 - [Workflow Optimization](06-workflow-optimization.md)
+- [Always-On Context Problem](07-agents-md-problem.md)
 - [MCP & Tool Costs](08-mcp-tool-costs.md)
+
+### Comparisons
+
+- [Comparisons & Data](09-comparisons-data.md)
+- [Outcome per Token](13-outcome-per-token.md)
 
 ### Implementation
 
 - [Practical Setup](10-practical-setup.md)
 - [Model Selection & Pricing](11-models-and-pricing.md)
 - [Enterprise Governance](12-enterprise-governance.md)
-- [Outcome per Token](13-outcome-per-token.md)
 
 ## Quick Terms
 
