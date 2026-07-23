@@ -4,8 +4,8 @@ Practical guide to reducing GitHub Copilot token spend while keeping answers and
 
 [Start with Part 1](01-why-tokens-matter.md){ .md-button .md-button--primary }
 [Jump to Practical Setup](10-practical-setup.md){ .md-button }
-[Concise practitioner briefing](../slides/briefing.html){ .md-button }
-[Full 8-hour workshop](../slides/index.html){ .md-button }
+<a class="md-button" href="https://olivomarco.github.io/github-copilot-token-optimization/slides/briefing.html">Concise practitioner briefing</a>
+<a class="md-button" href="https://olivomarco.github.io/github-copilot-token-optimization/slides/index.html">Full 8-hour workshop</a>
 
 ## What This Covers
 
