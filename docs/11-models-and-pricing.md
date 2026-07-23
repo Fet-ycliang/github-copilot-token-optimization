@@ -133,10 +133,10 @@ This is especially relevant when comparing a cheap reasoning-capable model at `m
 **Cache-protection rule:** choose the lane before work starts and hold it stable in long sessions:
 
 ```text
-{ model, active MCP set, active agent/profile }
+{ model, reasoning effort, loaded skills, active MCP/tool set, agent/profile }
 ```
 
-If you must change the lane (for example cheap/Auto to premium for a hard subtask), start a fresh chat with only the relevant summary and files. This preserves cache-friendly stability in the original session and avoids dragging long low-value history into a higher-cost request. The exact billing implementation can change by surface and plan, so frame this as risk control rather than guaranteed repricing math.
+If you must change the lane or harness (for example cheap/Auto to premium, `medium` to `high` reasoning effort, or a different skill/tool set), start a fresh chat with only the relevant summary and files. This preserves cache-friendly stability in the original session and avoids dragging long low-value history into a higher-cost request. The exact billing implementation can change by surface and plan, so treat cache loss as a risk to avoid rather than a guaranteed repricing calculation.
 
 ## Org Rollout Rule: Review Before Enablement
 

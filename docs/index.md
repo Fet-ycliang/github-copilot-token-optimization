@@ -19,7 +19,7 @@ Practical guide to reducing GitHub Copilot token spend while keeping answers and
 
 1. Constrain output by default: `Code only, no explanation.` and `No explanations unless asked.`
 2. Keep `.github/copilot-instructions.md` small and specific.
-3. Protect cache in long sessions: keep `{model, active MCP set, active agent/profile}` stable; if you must switch, start a fresh chat with a short handoff summary.
+3. Protect cache in long sessions: keep `{model, reasoning effort, loaded skills, active MCP/tool set, agent/profile}` stable; if you must change one, start a fresh chat with a short handoff summary.
 4. Use Ask Mode for questions that do not need tools.
 5. Retune prompts and instructions against the official guide for your target model.
 6. Disable MCP servers you are not using.
@@ -69,6 +69,7 @@ Practical guide to reducing GitHub Copilot token spend while keeping answers and
 - [Caveman project](https://github.com/JuliusBrussee/caveman)
 - [RTK — Rust Token Killer](https://github.com/rtk-ai/rtk)
 - [snip](https://github.com/edouard-claude/snip) — YAML-extensible shell-output filter for Copilot CLI and other agent shells
+- [Tokentop](https://github.com/tokentopapp/tokentop) — local live dashboard for agent token, cost, and burn-rate visibility; supports Copilot CLI
 - [minimal-context-tools](https://github.com/SebastienDegodez/copilot-instructions/tree/main/plugins/minimal-context-tools) — skill pack for lower-context CLI search/query patterns
 - [Graphify](https://github.com/Graphify-Labs/graphify) — build a persistent knowledge graph of your codebase; agents query `graphify-out/graph.json` instead of re-reading files. Supports GitHub Copilot, VS Code workflows, and other assistants. PyPI package: `graphifyy`
 - [Microsoft MarkItDown](https://github.com/microsoft/markitdown) — convert PDF, Office files, images, audio, HTML, ZIP contents, YouTube URLs, EPUBs, and more to Markdown for LLM workflows

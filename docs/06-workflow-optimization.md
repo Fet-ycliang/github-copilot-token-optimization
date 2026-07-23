@@ -327,7 +327,7 @@ Add third-party tools only for the layer they actually improve:
 | Command output | RTK or snip | Verbose `git`, test, grep, build, and infra command output |
 | Command choice | minimal-context-tools | Broad file reads and iterative searching by steering toward `rg`, `fd`, `jq`, `ast-grep` |
 | Codebase orientation | Graphify | Repeated structural file reads across sessions |
-| Visibility/audit | Tokalator, token-optimizer | Waste you would otherwise miss; not compression by itself |
+| Visibility/audit | [Tokentop](https://github.com/tokentopapp/tokentop), Tokalator, token-optimizer | Tokentop gives live local session, model, token, cost, and burn-rate visibility; monitoring does not compress by itself |
 
 **Rule:** one tool per layer. Combining CodeAct with RTK or snip can make sense because one reduces turn count and the other reduces output size. Running RTK and snip on the same command path usually does not — it can double-truncate output and make failures harder to inspect.
 

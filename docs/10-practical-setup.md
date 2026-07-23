@@ -91,10 +91,10 @@ GitHub Copilot pricing depends on model choice and billing mode. Pick the model 
 After you choose the lane for a long thread, keep it stable:
 
 ```text
-{ model, active MCP set, active agent/profile }
+{ model, reasoning effort, loaded skills, active MCP/tool set, agent/profile }
 ```
 
-Do not change those controls in the middle of an expensive conversation unless required. Mid-thread switches often invalidate cached prefixes and remove the cached-input discount you had built up.
+Do not change those controls in the middle of an expensive conversation unless required. Model, reasoning-effort, skill, or harness changes can invalidate the cached prefix and make its context bill again at standard input rates.
 
 If a switch is required, do this instead:
 
@@ -425,19 +425,19 @@ pipeline:
 A "harness" is not a separate install here. It is the stable set of controls around an agent session:
 
 ```text
-model + mode + agent/profile + active MCP/tools + output filter + repo instructions
+model + reasoning effort + mode + agent/profile + loaded skills + active MCP/tools + output filter + repo instructions
 ```
 
-Before a long agent run, set those once and keep them stable. Changing them mid-session can invalidate cached prefixes and make the agent carry stale context under a new tool set.
+Before a long agent run, set those once and keep them stable. Changing the model, reasoning effort, loaded skills, or other harness controls mid-session can invalidate cached prefixes and make the agent carry stale context under a new setup.
 
 Use this checklist:
 
 1. Pick the mode: Ask/Edit/Agent/Coding Agent.
-2. Pick the model lane or Auto.
-3. Disable unused MCP servers and extension-provided tools.
+2. Pick the model lane or Auto and reasoning effort.
+3. Disable unused MCP servers, skills, and extension-provided tools.
 4. Pick one command-output filter if needed: RTK or snip.
 5. Use Graphify if repeated codebase orientation dominates.
-6. Start a fresh session if you need to change the lane.
+6. Start a fresh session if you need to change the model, effort, skill, or harness.
 
 ## 4.4 Building the Habit
 

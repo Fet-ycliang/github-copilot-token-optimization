@@ -186,9 +186,9 @@ You can lean into this. Two practical patterns:
 
 | Mid-session change | Effect on cache & context |
 |--------------------|---------------------------|
-| **Switch model** | Worst case. Caches are typically per-model, so the cached prefix is effectively gone — and the carried history gets re-priced in the new (often costlier) lane. Pick the model before the work starts; see [Model-switch rule](11-models-and-pricing.md#anti-patterns). |
+| **Switch model or reasoning effort** | Caches are typically per-model, and changing model configuration can discard the cached prefix. The carried history may then be billed again at standard input rates in the new lane. Pick both before work starts; see [Model-switch rule](11-models-and-pricing.md#anti-patterns). |
 | **Switch custom agent** | Swaps the system prompt, tool set, and instructions — the prefix changes, so the cache is invalidated and the prior accumulated context becomes pollution under the new agent. |
-| **Toggle MCP servers / tools** | Changes the tool-definitions block in the prefix — cache invalidated, plus you add or remove always-loaded tokens on every later turn. |
+| **Toggle MCP servers, tools, or loaded skills** | Changes the harness and its tool/instruction definitions in the prefix — cache invalidated, plus you add or remove always-loaded tokens on every later turn. |
 | **Churn large context** | Attaching/detaching big files or pasting large blobs reshuffles context and undercuts prefix stability. Choose your files and context up front. |
 
 The pattern: **decide model, agent, and tool set before you start; if you genuinely need a different one, start a fresh session** with only the relevant summary and files rather than mutating a long one. (Billing implementation varies by surface and plan, so treat this as risk control rather than guaranteed repricing math.)
@@ -201,7 +201,7 @@ Cache-stable long thread
 Turn 1     Turn 2     Turn 3     Turn 4
 |          |          |          |
 v          v          v          v
-[same model + same MCP set + same agent/profile]
+[same model + same reasoning effort + same skills/MCP set + same agent/profile]
 [stable prompt prefix reused from cache          ]  -> lower effective input cost
 [only newest user request changes               ]
 
@@ -214,7 +214,7 @@ v          v             v
 [cached prefix builds         ]
                   |
                   v
-          switch model / MCP / agent
+          switch model / reasoning effort / skills / MCP / agent
                   |
                   v
 [large prefix invalidated or repriced] -> cache discount lost; start fresh instead
@@ -225,13 +225,15 @@ v          v             v
 In expensive long-running chats, treat cache stability as a hard constraint. The most common cache-busters are:
 
 - **Switching models mid-thread** (for example, moving from one Claude/GPT tier to another)
+- **Changing reasoning effort mid-thread** on a supported reasoning model
 - **Enabling or disabling MCP servers mid-thread** (tool definitions sit near the top of context; changing them invalidates large prefixes)
+- **Loading or unloading skills mid-thread** when they change the session's instructions or tools
 - **Switching agent/profile mode mid-thread** (default agent ↔ custom agent, or one custom agent ↔ another)
 
 Practical rule: keep this tuple fixed for the whole long thread:
 
 ```text
-{ model, active MCP set, active agent/profile }
+{ model, reasoning effort, loaded skills, active MCP/tool set, agent/profile }
 ```
 
 If you need to change any item in that tuple, start a fresh conversation with a compact handoff summary instead of changing it in place.
